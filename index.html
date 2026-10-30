@@ -41,9 +41,7 @@
     color: var(--text); margin-bottom: 14px;
   }
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .field.full { grid-column: 1 / -1; }
   label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 6px; }
-  label small { color: var(--accent-dim); }
   input {
     width: 100%;
     background: var(--card-2);
@@ -56,9 +54,20 @@
   }
   input:focus { border-color: var(--accent-dim); }
   input[type="number"] { font-variant-numeric: tabular-nums; }
-  .result { padding: 8px 0 4px; }
+  .meta-fixed {
+    margin-top: 14px;
+    background: var(--card-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: .93rem;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+  }
+  .meta-fixed b { color: var(--text); font-variant-numeric: tabular-nums; }
   .result .total, .result .status { text-align: center; }
-  .result .total { font-size: 2.25rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .result .total { font-size: 2.25rem; font-weight: 700; font-variant-numeric: tabular-nums; margin-top: 4px; }
   .result .total small { font-size: 1rem; font-weight: 400; color: var(--muted); }
   .bar {
     height: 10px; background: var(--card-2);
@@ -74,6 +83,17 @@
   .status { font-size: 1rem; font-weight: 600; }
   .status.ok { color: var(--green); }
   .status.missing { color: var(--muted); }
+  .tip {
+    margin-top: 12px;
+    background: var(--card-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: .9rem;
+    color: var(--muted);
+    text-align: center;
+  }
+  .tip b { color: var(--text); }
   .breakdown {
     list-style: none; margin-top: 14px; padding-top: 14px;
     border-top: 1px solid var(--border);
@@ -82,7 +102,9 @@
   .breakdown li { display: flex; justify-content: space-between; padding: 3px 0; }
   .breakdown li b { color: var(--text); font-variant-numeric: tabular-nums; }
   .phrase {
-    margin-top: 16px; background: var(--card-2);
+    margin-top: 16px;
+    margin-bottom: 4px;
+    background: var(--card-2);
     border: 1px solid var(--border); border-radius: 8px;
     padding: 12px 14px; font-size: .95rem;
     display: flex; gap: 10px; align-items: center; justify-content: space-between;
@@ -118,31 +140,16 @@
   <section class="card">
     <h2>Seus pontos</h2>
     <div class="grid">
-      <div class="field full">
-        <label for="nick">Nick <small>(opcional)</small></label>
-        <input id="nick" type="text" placeholder="Ex: Osiris" autocomplete="off" maxlength="30">
+      <div class="field">
+        <label for="daily">Dailys (pontos)</label>
+        <input id="daily" type="number" min="0" step="1" placeholder="0" inputmode="numeric">
       </div>
       <div class="field">
-        <label for="wild">Wildscape feitas <small>× 4 pts</small></label>
-        <input id="wild" type="number" min="0" step="1" placeholder="0" inputmode="numeric">
-      </div>
-      <div class="field">
-        <label for="primal">Primal feitas <small>× 8 pts</small></label>
-        <input id="primal" type="number" min="0" step="1" placeholder="0" inputmode="numeric">
-      </div>
-      <div class="field">
-        <label for="donate">Doação na semana (em k) <small>100k = 3 pts</small></label>
-        <input id="donate" type="number" min="0" step="1" inputmode="numeric" placeholder="Ex: 2100 = 2,1kk">
-      </div>
-      <div class="field">
-        <label for="dds">DDs doados <small>× 10 pts</small></label>
-        <input id="dds" type="number" min="0" step="1" placeholder="0" inputmode="numeric">
-      </div>
-      <div class="field full">
-        <label for="meta">Meta da semana (pontos)</label>
-        <input id="meta" type="number" min="1" step="1" value="150" inputmode="numeric">
+        <label for="contrib">Contribuição (pontos)</label>
+        <input id="contrib" type="number" min="0" step="1" placeholder="0" inputmode="numeric">
       </div>
     </div>
+    <div class="meta-fixed"><span>Meta da semana</span><b>150 pts</b></div>
   </section>
 
   <section class="card result">
@@ -150,6 +157,7 @@
     <div class="total"><span id="total">0</span> <small>pts</small></div>
     <div class="bar" id="bar"><i id="barfill"></i></div>
     <div class="status" id="status">—</div>
+    <div class="tip" id="tip" hidden></div>
     <ul class="breakdown" id="breakdown"></ul>
     <div class="phrase">
       <code id="phrase">—</code>
@@ -165,7 +173,7 @@
       <li><b>Primal:</b> 8 pts cada</li>
       <li><b>Doação:</b> 3 pts a cada 100k completos</li>
       <li><b>DD doado:</b> 10 pts cada</li>
-      <li><b>Meta:</b> <span id="metaEcho">150</span> pts por semana, somando tudo</li>
+      <li><b>Meta:</b> 150 pts por semana, somando tudo</li>
     </ul>
     <h3>Exemplos (150+)</h3>
     <ul>
@@ -196,12 +204,15 @@
 
 <script>
 (function () {
+  var META = 150;
+  var PTS_WILD = 4, PTS_PRIMAL = 8;
+
   var $ = function (id) { return document.getElementById(id); };
-  var nick = $("nick"), wild = $("wild"), primal = $("primal"),
-      donate = $("donate"), dds = $("dds"), meta = $("meta"),
+  var daily = $("daily"), contrib = $("contrib"),
       totalEl = $("total"), bar = $("bar"), barfill = $("barfill"),
-      statusEl = $("status"), breakdown = $("breakdown"),
-      phrase = $("phrase"), copyBtn = $("copy"), metaEcho = $("metaEcho");
+      statusEl = $("status"), tipEl = $("tip"),
+      breakdown = $("breakdown"),
+      phrase = $("phrase"), copyBtn = $("copy");
 
   function num(el, fallback) {
     var v = parseFloat(String(el.value).replace(",", "."));
@@ -210,55 +221,52 @@
   function fmt(n) {
     return (Math.round(n * 10) / 10).toString().replace(".", ",");
   }
-  function fmtK(k) {
-    return k >= 1000 ? fmt(k / 1000) + "kk" : fmt(k) + "k";
-  }
 
   function calc() {
-    var w = Math.floor(num(wild, 0));
-    var p = Math.floor(num(primal, 0));
-    var d = Math.floor(num(donate, 0));
-    var dd = Math.floor(num(dds, 0));
-    var m = Math.max(1, Math.floor(num(meta, 150)));
-
-    var ptsW = w * 4, ptsP = p * 8, ptsD = Math.floor(d / 100) * 3, ptsDD = dd * 10;
-    var total = ptsW + ptsP + ptsD + ptsDD;
-    var pct = (total / m) * 100;
-    var ok = total >= m;
+    var d = num(daily, 0);
+    var c = num(contrib, 0);
+    var total = d + c;
+    var pct = (total / META) * 100;
+    var ok = total >= META;
 
     totalEl.textContent = fmt(total);
-    metaEcho.textContent = fmt(m);
     barfill.style.width = Math.min(pct, 100).toFixed(1) + "%";
     bar.className = "bar" + (ok ? " done" : "");
 
     statusEl.className = "status " + (ok ? "ok" : "missing");
     statusEl.textContent = ok
       ? "Meta batida (" + fmt(pct) + "%)"
-      : "Faltam " + fmt(m - total) + " pts (" + fmt(pct) + "%)";
+      : "Faltam " + fmt(META - total) + " pts (" + fmt(pct) + "%)";
+
+    if (!ok) {
+      var missing = META - total;
+      var wild = Math.ceil(missing / PTS_WILD);
+      var primal = Math.ceil(missing / PTS_PRIMAL);
+      tipEl.hidden = false;
+      tipEl.innerHTML = "Faltam <b>" + fmt(missing) + " pts</b>: " +
+        "+" + wild + " Wildscape ou +" + primal + " Primal para bater.";
+    } else {
+      tipEl.hidden = true;
+      tipEl.innerHTML = "";
+    }
 
     var rows = [];
-    if (w > 0) rows.push(["Wildscape × " + w, fmt(ptsW) + " pts"]);
-    if (p > 0) rows.push(["Primal × " + p, fmt(ptsP) + " pts"]);
-    if (d > 0) rows.push(["Doação " + fmtK(d), fmt(ptsD) + " pts"]);
-    if (dd > 0) rows.push(["DDs × " + dd, fmt(ptsDD) + " pts"]);
+    if (d > 0) rows.push(["Dailys", fmt(d) + " pts"]);
+    if (c > 0) rows.push(["Contribuição", fmt(c) + " pts"]);
     breakdown.innerHTML = rows.length
       ? rows.map(function (r) { return "<li><span>" + r[0] + "</span><b>" + r[1] + "</b></li>"; }).join("")
       : "<li><span>Nada ainda</span><b>0</b></li>";
 
     var parts = [];
-    if (w > 0) parts.push(fmt(ptsW));
-    if (p > 0) parts.push(fmt(ptsP));
-    if (d > 0) parts.push(fmt(ptsD));
-    if (dd > 0) parts.push(fmt(ptsDD));
-    var name = nick.value.trim();
+    if (d > 0) parts.push(fmt(d));
+    if (c > 0) parts.push(fmt(c));
     var base = parts.length >= 2
       ? parts.join(" + ") + " = " + fmt(total)
       : fmt(total);
-    phrase.textContent = (name ? name + ": " : "") +
-      base + " total " + (ok ? "✅" : "❌") + " (" + fmt(pct) + "% da meta)";
+    phrase.textContent = base + " total " + (ok ? "✅" : "❌") + " (" + fmt(pct) + "% da meta)";
   }
 
-  ["nick", "wild", "primal", "donate", "dds", "meta"].forEach(function (id) {
+  ["daily", "contrib"].forEach(function (id) {
     $(id).addEventListener("input", calc);
   });
 
