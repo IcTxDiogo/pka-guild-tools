@@ -20,6 +20,8 @@
     --accent: #d9a441;
     --accent-dim: #8a6a2b;
     --green: #4caf7d;
+    --red: #d06060;
+    --orange: #c98a3b;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -30,10 +32,24 @@
     padding: 24px 16px 64px;
   }
   .wrap { max-width: 640px; margin: 0 auto; }
-  header { text-align: center; margin: 24px 0 28px; }
+  .wrap.wide { max-width: 860px; }
+  header { text-align: center; margin: 24px 0 20px; }
   header img { width: 96px; height: 96px; border-radius: 20px; display: block; margin: 0 auto 12px; }
   header h1 { font-size: 1.5rem; font-weight: 700; }
   header p { color: var(--muted); font-size: .95rem; margin-top: 6px; }
+  nav {
+    display: flex; gap: 8px; justify-content: center;
+    margin-bottom: 24px;
+  }
+  nav button {
+    cursor: pointer;
+    background: var(--card); color: var(--muted);
+    border: 1px solid var(--border); border-radius: 99px;
+    padding: 8px 20px; font-size: .9rem; font-weight: 600;
+  }
+  nav button.active {
+    background: var(--accent); border-color: var(--accent); color: #141414;
+  }
   .card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -47,7 +63,7 @@
   }
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 6px; }
-  input {
+  input, select {
     width: 100%;
     background: var(--card-2);
     border: 1px solid var(--border);
@@ -57,8 +73,17 @@
     padding: 10px 12px;
     outline: none;
   }
-  input:focus { border-color: var(--accent-dim); }
+  input:focus, select:focus { border-color: var(--accent-dim); }
   input[type="number"] { font-variant-numeric: tabular-nums; }
+  select {
+    cursor: pointer; font-size: .95rem;
+    max-width: 320px;
+  }
+  .week-head {
+    display: flex; gap: 12px; align-items: end; justify-content: space-between;
+    flex-wrap: wrap; margin-bottom: 16px;
+  }
+  .week-head .note { font-size: .85rem; color: var(--muted); }
   .meta-fixed {
     margin-top: 14px;
     background: var(--card-2);
@@ -127,78 +152,141 @@
   .rules li { margin: 4px 0; }
   .rules li b, .rules p b { color: var(--text); }
   .rules p { color: var(--muted); font-size: .93rem; margin: 4px 0; }
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  th, td { padding: 8px 10px; text-align: left; white-space: nowrap; }
+  thead th {
+    background: #2f6b4f;
+    color: #fff;
+    font-size: .78rem; text-transform: uppercase; letter-spacing: .04em;
+    position: sticky; top: 0;
+  }
+  tbody tr { border-top: 1px solid var(--border); }
+  tbody tr:nth-child(even) { background: var(--card-2); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.pts { font-weight: 700; color: #fff; }
+  td.pts.ok { background: #1e8fa8; }
+  td.pts.mid { background: var(--orange); color: #141414; }
+  td.pts.low { background: var(--red); color: #fff; }
+  td.just { color: var(--muted); font-size: .85rem; }
+  .kick { border-color: var(--red); }
+  .kick h2 { color: var(--red); }
+  .kick ul { padding-left: 20px; font-size: .93rem; }
+  .kick li { margin: 4px 0; }
+  .kick .ok-note { color: var(--green); font-size: .93rem; }
   footer { text-align: center; color: var(--muted); font-size: .8rem; margin-top: 28px; }
+  [hidden] { display: none !important; }
   @media (max-width: 480px) {
     .grid { grid-template-columns: 1fr; }
     .result .total { font-size: 2rem; }
+    .card { padding: 18px; }
   }
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap" id="wrap">
 
   <header>
     <img src="icon.png" alt="Mascote da guild" width="96" height="96">
     <h1>Meta semanal</h1>
-    <p>Coloque o que você fez na semana e veja quanto falta.</p>
+    <p id="subtitle">Coloque o que você fez na semana e veja quanto falta.</p>
   </header>
 
-  <section class="card">
-    <h2>Seus pontos</h2>
-    <div class="grid">
-      <div class="field">
-        <label for="daily">Dailys (pontos do jogo)</label>
-        <input id="daily" type="number" min="0" step="1" placeholder="Ex: 36" inputmode="numeric">
-      </div>
-      <div class="field">
-        <label for="contrib">Contribuição (valor do jogo)</label>
-        <input id="contrib" type="number" min="0" step="1" placeholder="Ex: 4600" inputmode="numeric">
-      </div>
-    </div>
-    <div class="meta-fixed"><span>Meta da semana</span><b>150 pts</b></div>
-  </section>
+  <nav>
+    <button id="tabCalc" class="active" type="button">Calculadora</button>
+    <button id="tabHist" type="button">Histórico</button>
+  </nav>
 
-  <section class="card result">
-    <h2>Resultado</h2>
-    <div class="total"><span id="total">0</span> <small>pts</small></div>
-    <div class="bar" id="bar"><i id="barfill"></i></div>
-    <div class="status" id="status">—</div>
-    <div class="tip" id="tip" hidden></div>
-    <ul class="breakdown" id="breakdown"></ul>
-    <div class="phrase">
-      <code id="phrase">—</code>
-      <button id="copy" type="button">Copiar</button>
-    </div>
-  </section>
+  <!-- ============ CALCULADORA ============ -->
+  <div id="viewCalc">
+    <section class="card">
+      <h2>Seus pontos</h2>
+      <div class="grid">
+        <div class="field">
+          <label for="daily">Dailys (pontos do jogo)</label>
+          <input id="daily" type="number" min="0" step="1" placeholder="Ex: 36" inputmode="numeric">
+        </div>
+        <div class="field">
+          <label for="contrib">Contribuição (valor do jogo)</label>
+          <input id="contrib" type="number" min="0" step="1" placeholder="Ex: 4600" inputmode="numeric">
+        </div>
+      </div>
+      <div class="meta-fixed"><span>Meta da semana</span><b>150 pts</b></div>
+    </section>
 
-  <section class="card rules">
-    <h2>Regras</h2>
-    <h3>Pontuação</h3>
-    <ul>
-      <li><b>Dailys:</b> pontos do jogo × 2 (normal vale 1, caveira 2, primal 4 — o jogo já soma na coluna Pontos)</li>
-      <li><b>Contribuição:</b> valor do jogo ÷ 100</li>
-      <li><b>Meta:</b> 150 pts por semana, somando tudo</li>
-    </ul>
-    <h3>Exemplos (150+)</h3>
-    <ul>
-      <li>50 de daily + 5.000 de contribuição = 100 + 50 = 150 pts</li>
-      <li>75 de daily + 0 de contribuição = 150 + 0 = 150 pts</li>
-      <li>36 de daily + 4.600 de contribuição = 72 + 46 = 118 pts (faltam 32)</li>
-    </ul>
-    <h3>Agenda</h3>
-    <ul>
-      <li><b>Boss:</b> os 4, toda quarta às 21h</li>
-      <li><b>Fechamento:</b> todo domingo às 23h (conferência + ranking)</li>
-    </ul>
-    <h3>Premiação semanal</h3>
-    <p>1º lugar: 10 DDs · 2º lugar: 5 DDs</p>
-    <h3>Avisos</h3>
-    <ul>
-      <li>Não bateu a meta e não avisou: vai pra <b>lista de kick</b>.</li>
-      <li>Não vai conseguir cumprir? <b>Avise a liderança antes.</b></li>
-      <li>Organização no <b>WhatsApp</b>; resenha e calls no <b>WhatsApp e Discord</b>.</li>
-    </ul>
-  </section>
+    <section class="card result">
+      <h2>Resultado</h2>
+      <div class="total"><span id="total">0</span> <small>pts</small></div>
+      <div class="bar" id="bar"><i id="barfill"></i></div>
+      <div class="status" id="status">—</div>
+      <div class="tip" id="tip" hidden></div>
+      <ul class="breakdown" id="breakdown"></ul>
+      <div class="phrase">
+        <code id="phrase">—</code>
+        <button id="copy" type="button">Copiar</button>
+      </div>
+    </section>
+
+    <section class="card rules">
+      <h2>Regras</h2>
+      <h3>Pontuação</h3>
+      <ul>
+        <li><b>Dailys:</b> pontos do jogo × 2 (normal vale 1, caveira 2, primal 4 — o jogo já soma na coluna Pontos)</li>
+        <li><b>Contribuição:</b> valor do jogo ÷ 100</li>
+        <li><b>Meta:</b> 150 pts por semana, somando tudo</li>
+      </ul>
+      <h3>Exemplos (150+)</h3>
+      <ul>
+        <li>50 de daily + 5.000 de contribuição = 100 + 50 = 150 pts</li>
+        <li>75 de daily + 0 de contribuição = 150 + 0 = 150 pts</li>
+        <li>36 de daily + 4.600 de contribuição = 72 + 46 = 118 pts (faltam 32)</li>
+      </ul>
+      <h3>Agenda</h3>
+      <ul>
+        <li><b>Boss:</b> os 4, toda quarta às 21h</li>
+        <li><b>Fechamento:</b> todo domingo às 23h (conferência + ranking)</li>
+      </ul>
+      <h3>Premiação semanal</h3>
+      <p>1º lugar: 10 DDs · 2º lugar: 5 DDs</p>
+      <h3>Avisos</h3>
+      <ul>
+        <li>Não bateu a meta e não avisou: vai pra <b>lista de kick</b>.</li>
+        <li>Não vai conseguir cumprir? <b>Avise a liderança antes.</b></li>
+        <li>Organização no <b>WhatsApp</b>; resenha e calls no <b>WhatsApp e Discord</b>.</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- ============ HISTÓRICO ============ -->
+  <div id="viewHist" hidden>
+    <section class="card">
+      <h2>Semana</h2>
+      <div class="week-head">
+        <select id="weekSel"></select>
+        <span class="note" id="weekNote"></span>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th class="num">LVL</th><th>Nome</th>
+              <th class="num"># daily</th><th class="num"># $</th>
+              <th class="num"># PTS</th><th>entrou?</th>
+            </tr>
+          </thead>
+          <tbody id="histBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card kick" id="kickCard" hidden>
+      <h2>Lista de kick</h2>
+      <ul id="kickList"></ul>
+    </section>
+    <section class="card" id="noKickCard" hidden>
+      <p class="ok-note" id="noKickText" style="color:var(--green)">Ninguém entra na lista de kick nesta semana. ✅</p>
+    </section>
+  </div>
 
   <footer>Nada é salvo.</footer>
 
@@ -206,16 +294,14 @@
 
 <script>
 (function () {
-  var META = 150;
+  var CALC_META = 150;
   var DAILY_MULT = 2;
   var CONTRIB_DIV = 100;
 
   var $ = function (id) { return document.getElementById(id); };
-  var daily = $("daily"), contrib = $("contrib"),
-      totalEl = $("total"), bar = $("bar"), barfill = $("barfill"),
-      statusEl = $("status"), tipEl = $("tip"),
-      breakdown = $("breakdown"),
-      phrase = $("phrase"), copyBtn = $("copy");
+  var wrap = $("wrap"), subtitle = $("subtitle");
+  var tabCalc = $("tabCalc"), tabHist = $("tabHist");
+  var viewCalc = $("viewCalc"), viewHist = $("viewHist");
 
   function num(el, fallback) {
     var v = parseFloat(String(el.value).replace(",", "."));
@@ -225,14 +311,37 @@
     return (Math.round(n * 10) / 10).toString().replace(".", ",");
   }
 
+  /* ---------- abas ---------- */
+  function show(which) {
+    var isCalc = which === "calc";
+    viewCalc.hidden = !isCalc;
+    viewHist.hidden = isCalc;
+    tabCalc.className = isCalc ? "active" : "";
+    tabHist.className = isCalc ? "" : "active";
+    wrap.className = "wrap" + (isCalc ? "" : " wide");
+    subtitle.textContent = isCalc
+      ? "Coloque o que você fez na semana e veja quanto falta."
+      : "Ranking das semanas passadas e lista de kick.";
+    if (!isCalc) loadHistory();
+  }
+  tabCalc.addEventListener("click", function () { show("calc"); });
+  tabHist.addEventListener("click", function () { show("hist"); });
+
+  /* ---------- calculadora ---------- */
+  var daily = $("daily"), contrib = $("contrib"),
+      totalEl = $("total"), bar = $("bar"), barfill = $("barfill"),
+      statusEl = $("status"), tipEl = $("tip"),
+      breakdown = $("breakdown"),
+      phrase = $("phrase"), copyBtn = $("copy");
+
   function calc() {
     var dRaw = num(daily, 0);
     var cRaw = num(contrib, 0);
     var ptsD = dRaw * DAILY_MULT;
     var ptsC = cRaw / CONTRIB_DIV;
     var total = ptsD + ptsC;
-    var pct = (total / META) * 100;
-    var ok = total >= META;
+    var pct = (total / CALC_META) * 100;
+    var ok = total >= CALC_META;
 
     totalEl.textContent = fmt(total);
     barfill.style.width = Math.min(pct, 100).toFixed(1) + "%";
@@ -241,10 +350,10 @@
     statusEl.className = "status " + (ok ? "ok" : "missing");
     statusEl.textContent = ok
       ? "Meta batida (" + fmt(pct) + "%)"
-      : "Faltam " + fmt(META - total) + " pts (" + fmt(pct) + "%)";
+      : "Faltam " + fmt(CALC_META - total) + " pts (" + fmt(pct) + "%)";
 
     if (!ok) {
-      var missing = META - total;
+      var missing = CALC_META - total;
       var needDaily = Math.ceil(missing / DAILY_MULT);
       var needContrib = Math.ceil(missing * CONTRIB_DIV);
       tipEl.hidden = false;
@@ -296,6 +405,107 @@
   });
 
   calc();
+
+  /* ---------- histórico ---------- */
+  var weeks = null, rowsCache = {};
+  var weekSel = $("weekSel"), weekNote = $("weekNote"),
+      histBody = $("histBody"),
+      kickCard = $("kickCard"), kickList = $("kickList"),
+      noKickCard = $("noKickCard"), noKickText = $("noKickText");
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function parseCSV(text) {
+    var lines = text.split(/\r?\n/).filter(function (l) { return l.trim() !== ""; });
+    if (lines.length < 2) return [];
+    var head = lines[0].split(",").map(function (h) { return h.trim(); });
+    var idx = {};
+    head.forEach(function (h, i) { idx[h] = i; });
+    return lines.slice(1).map(function (l) {
+      var c = l.split(",");
+      while (c.length < head.length) c.push("");
+      return {
+        lvl: parseInt((c[idx.lvl] || "0").trim(), 10) || 0,
+        nome: (c[idx.nome] || "").trim(),
+        daily: parseFloat((c[idx.daily] || "0").trim()) || 0,
+        contrib: parseFloat((c[idx.contrib] || "0").trim()) || 0,
+        entrou: (c[idx.entrou] || "").trim()
+      };
+    }).filter(function (r) { return r.nome !== ""; });
+  }
+
+  function ptsClass(pts, meta) {
+    if (pts >= meta) return "ok";
+    if (pts >= meta - 50) return "mid";
+    return "low";
+  }
+
+  function renderWeek(w) {
+    var rows = rowsCache[w.id] || [];
+    var scored = rows.map(function (r) {
+      var pts = r.daily * w.dailyMult + r.contrib / w.contribDiv;
+      return { r: r, pts: pts, ok: pts >= w.meta };
+    }).sort(function (a, b) { return b.pts - a.pts; });
+
+    weekNote.textContent = "Meta " + w.meta + " pts · " + w.ruleNote;
+
+    histBody.innerHTML = scored.map(function (s) {
+      return "<tr><td class=\"num\">" + s.r.lvl + "</td><td>" + esc(s.r.nome) + "</td>" +
+        "<td class=\"num\">" + fmt(s.r.daily) + "</td>" +
+        "<td class=\"num\">" + fmt(s.r.contrib) + "</td>" +
+        "<td class=\"num pts " + ptsClass(s.pts, w.meta) + "\">" + fmt(s.pts) + "</td>" +
+        "<td class=\"just\">" + esc(s.r.entrou) + "</td></tr>";
+    }).join("");
+
+    // kick: abaixo da meta E sem nada na coluna entrou
+    var kick = scored.filter(function (s) { return !s.ok && s.r.entrou === ""; });
+    if (kick.length) {
+      kickCard.hidden = false;
+      noKickCard.hidden = true;
+      kickList.innerHTML = kick.map(function (s) {
+        return "<li><b>" + esc(s.r.nome) + "</b> — " + fmt(s.pts) + " pts (faltam " + fmt(w.meta - s.pts) + ")</li>";
+      }).join("");
+    } else {
+      kickCard.hidden = true;
+      noKickCard.hidden = false;
+      noKickText.textContent = "Ninguém entra na lista de kick nesta semana. ✅";
+    }
+  }
+
+  function loadHistory() {
+    if (weeks) { renderWeek(weeks[weekSel.selectedIndex] || weeks[0]); return; }
+    fetch("data/weeks.json").then(function (res) {
+      if (!res.ok) throw new Error("sem weeks.json");
+      return res.json();
+    }).then(function (list) {
+      weeks = list;
+      weekSel.innerHTML = list.map(function (w) {
+        return "<option value=\"" + esc(w.id) + "\">" + esc(w.label) + "</option>";
+      }).join("");
+      var chain = Promise.resolve();
+      list.forEach(function (w) {
+        chain = chain.then(function () {
+          return fetch(w.file).then(function (res) {
+            if (!res.ok) throw new Error("sem " + w.file);
+            return res.text();
+          }).then(function (txt) { rowsCache[w.id] = parseCSV(txt); });
+        });
+      });
+      return chain.then(function () { renderWeek(weeks[0]); });
+    }).catch(function (err) {
+      histBody.innerHTML = "<tr><td colspan=\"6\">Não deu pra carregar o histórico (" +
+        esc(err.message) + ").</td></tr>";
+      weekNote.textContent = "";
+      kickCard.hidden = true;
+      noKickCard.hidden = true;
+    });
+  }
+  weekSel.addEventListener("change", function () {
+    if (weeks) renderWeek(weeks[weekSel.selectedIndex] || weeks[0]);
+  });
 })();
 </script>
 </body>

@@ -1,0 +1,11 @@
+[
+  {
+    "id": "2026-10-25",
+    "label": "25/10/2026",
+    "file": "data/2026-10-25.csv",
+    "meta": 140,
+    "dailyMult": 4,
+    "contribDiv": 100,
+    "ruleNote": "Regra antiga (valia até 25/10): daily ×4 + contribuição ÷100 · meta 140"
+  }
+]
