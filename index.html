@@ -141,12 +141,12 @@
     <h2>Seus pontos</h2>
     <div class="grid">
       <div class="field">
-        <label for="daily">Dailys (pontos)</label>
-        <input id="daily" type="number" min="0" step="1" placeholder="0" inputmode="numeric">
+        <label for="daily">Dailys (pontos do jogo)</label>
+        <input id="daily" type="number" min="0" step="1" placeholder="Ex: 36" inputmode="numeric">
       </div>
       <div class="field">
-        <label for="contrib">Contribuição (pontos)</label>
-        <input id="contrib" type="number" min="0" step="1" placeholder="0" inputmode="numeric">
+        <label for="contrib">Contribuição (valor do jogo)</label>
+        <input id="contrib" type="number" min="0" step="1" placeholder="Ex: 4600" inputmode="numeric">
       </div>
     </div>
     <div class="meta-fixed"><span>Meta da semana</span><b>150 pts</b></div>
@@ -169,19 +169,15 @@
     <h2>Regras</h2>
     <h3>Pontuação</h3>
     <ul>
-      <li><b>Wildscape:</b> 4 pts cada</li>
-      <li><b>Primal:</b> 8 pts cada</li>
-      <li><b>Doação:</b> 3 pts a cada 100k completos</li>
-      <li><b>DD doado:</b> 10 pts cada</li>
+      <li><b>Dailys:</b> pontos do jogo × 2 (normal vale 1, caveira 2, primal 4 — o jogo já soma na coluna Pontos)</li>
+      <li><b>Contribuição:</b> valor do jogo ÷ 100</li>
       <li><b>Meta:</b> 150 pts por semana, somando tudo</li>
     </ul>
     <h3>Exemplos (150+)</h3>
     <ul>
-      <li>20 Wildscape + 7 DDs = 150 pts</li>
-      <li>22 Wildscape + 300k/dia (2.100k na semana) = 151 pts</li>
-      <li>11 Primal + 300k/dia (2.100k na semana) = 151 pts</li>
-      <li>38 Wildscape = 152 pts</li>
-      <li>19 Primal = 152 pts</li>
+      <li>50 de daily + 5.000 de contribuição = 100 + 50 = 150 pts</li>
+      <li>75 de daily + 0 de contribuição = 150 + 0 = 150 pts</li>
+      <li>36 de daily + 4.600 de contribuição = 72 + 46 = 118 pts (faltam 32)</li>
     </ul>
     <h3>Agenda</h3>
     <ul>
@@ -205,7 +201,8 @@
 <script>
 (function () {
   var META = 150;
-  var PTS_WILD = 4, PTS_PRIMAL = 8;
+  var DAILY_MULT = 2;
+  var CONTRIB_DIV = 100;
 
   var $ = function (id) { return document.getElementById(id); };
   var daily = $("daily"), contrib = $("contrib"),
@@ -223,9 +220,11 @@
   }
 
   function calc() {
-    var d = num(daily, 0);
-    var c = num(contrib, 0);
-    var total = d + c;
+    var dRaw = num(daily, 0);
+    var cRaw = num(contrib, 0);
+    var ptsD = dRaw * DAILY_MULT;
+    var ptsC = cRaw / CONTRIB_DIV;
+    var total = ptsD + ptsC;
     var pct = (total / META) * 100;
     var ok = total >= META;
 
@@ -240,26 +239,26 @@
 
     if (!ok) {
       var missing = META - total;
-      var wild = Math.ceil(missing / PTS_WILD);
-      var primal = Math.ceil(missing / PTS_PRIMAL);
+      var needDaily = Math.ceil(missing / DAILY_MULT);
+      var needContrib = Math.ceil(missing * CONTRIB_DIV);
       tipEl.hidden = false;
-      tipEl.innerHTML = "Faltam <b>" + fmt(missing) + " pts</b>: " +
-        "+" + wild + " Wildscape ou +" + primal + " Primal para bater.";
+      tipEl.innerHTML = "Faltam <b>" + fmt(missing) + " pts</b>: +" +
+        needDaily + " de daily ou +" + needContrib + " de contribuição para bater.";
     } else {
       tipEl.hidden = true;
       tipEl.innerHTML = "";
     }
 
     var rows = [];
-    if (d > 0) rows.push(["Dailys", fmt(d) + " pts"]);
-    if (c > 0) rows.push(["Contribuição", fmt(c) + " pts"]);
+    if (dRaw > 0) rows.push(["Dailys " + fmt(dRaw) + " × " + DAILY_MULT, fmt(ptsD) + " pts"]);
+    if (cRaw > 0) rows.push(["Contribuição " + fmt(cRaw) + " ÷ " + CONTRIB_DIV, fmt(ptsC) + " pts"]);
     breakdown.innerHTML = rows.length
       ? rows.map(function (r) { return "<li><span>" + r[0] + "</span><b>" + r[1] + "</b></li>"; }).join("")
       : "<li><span>Nada ainda</span><b>0</b></li>";
 
     var parts = [];
-    if (d > 0) parts.push(fmt(d));
-    if (c > 0) parts.push(fmt(c));
+    if (dRaw > 0) parts.push(fmt(ptsD));
+    if (cRaw > 0) parts.push(fmt(ptsC));
     var base = parts.length >= 2
       ? parts.join(" + ") + " = " + fmt(total)
       : fmt(total);
