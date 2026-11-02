@@ -169,6 +169,8 @@
   td.pts.mid { background: var(--orange); color: #141414; }
   td.pts.low { background: var(--red); color: #fff; }
   td.just { color: var(--muted); font-size: .85rem; }
+  tr.kicked td.name { text-decoration: line-through; color: var(--muted); }
+  tr.kicked { opacity: .85; }
   .kick { border-color: var(--red); }
   .kick h2 { color: var(--red); }
   .kick ul { padding-left: 20px; font-size: .93rem; }
@@ -453,7 +455,8 @@
     weekNote.textContent = "Meta " + w.meta + " pts · " + w.ruleNote;
 
     histBody.innerHTML = scored.map(function (s) {
-      return "<tr><td class=\"num\">" + s.r.lvl + "</td><td>" + esc(s.r.nome) + "</td>" +
+      var kicked = !s.ok && s.r.entrou === "";
+      return "<tr" + (kicked ? " class=\"kicked\"" : "") + "><td class=\"num\">" + s.r.lvl + "</td><td class=\"name\">" + esc(s.r.nome) + "</td>" +
         "<td class=\"num\">" + fmt(s.r.daily) + "</td>" +
         "<td class=\"num\">" + fmt(s.r.contrib) + "</td>" +
         "<td class=\"num pts " + ptsClass(s.pts, w.meta) + "\">" + fmt(s.pts) + "</td>" +
