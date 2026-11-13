@@ -125,6 +125,7 @@ import { $, esc } from "./lib.js";
       medalRenderChips();
       medalApply();
     }).catch(function (err) {
+      medalsLoaded = false;
       medalEmpty.hidden = false;
       medalEmpty.textContent = "Não deu pra carregar o catálogo de medalhas (" + err.message + ").";
     });

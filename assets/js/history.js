@@ -70,7 +70,6 @@ import { $, fmt, esc } from "./lib.js";
       if (!res.ok) throw new Error("sem weeks.json");
       return res.json();
     }).then(function (list) {
-      weeks = list;
       weekSel.innerHTML = list.map(function (w) {
         return "<option value=\"" + esc(w.id) + "\">" + esc(w.label) + "</option>";
       }).join("");
@@ -83,7 +82,7 @@ import { $, fmt, esc } from "./lib.js";
           }).then(function (txt) { rowsCache[w.id] = parseCSV(txt); });
         });
       });
-      return chain.then(function () { renderWeek(weeks[0]); });
+      return chain.then(function () { weeks = list; renderWeek(weeks[0]); });
     }).catch(function (err) {
       histBody.innerHTML = "<tr><td colspan=\"6\">Não deu pra carregar o histórico (" +
         esc(err.message) + ").</td></tr>";
