@@ -7,7 +7,8 @@ import { $, esc } from "./lib.js";
       medalFile = $("medalFile"), medalFilterBtn = $("medalFilter"),
       medalWipe = $("medalWipe"), medalList = $("medalList"),
       medalEmpty = $("medalEmpty"), medalSummary = $("medalSummary"),
-      medalStoreNote = $("medalStoreNote");
+      medalStoreNote = $("medalStoreNote"), medalGroup = $("medalGroup");
+  var medalGrouped = true;
 
   function medalBuffLabel(id) {
     var b = medalCatalog.buffs.filter(function (x) { return x.id === id; })[0];
@@ -18,7 +19,8 @@ import { $, esc } from "./lib.js";
     if (!medalStoreOk) return;
     try {
       localStorage.setItem(MEDAL_STORE_KEY, JSON.stringify({
-        version: 1, selectedBonusIds: medalSelected, logText: medalLog.value
+        version: 1, selectedBonusIds: medalSelected, logText: medalLog.value,
+        grouped: medalGrouped
       }));
     } catch (e) {
       medalStoreOk = false;
@@ -39,6 +41,7 @@ import { $, esc } from "./lib.js";
         });
       }
       if (s && typeof s.logText === "string") medalLog.value = s.logText.slice(0, 200000);
+      if (s && typeof s.grouped === "boolean") medalGrouped = s.grouped;
     } catch (e) { /* dado corrompido: ignora e segue com padrão */ }
     if (!medalStoreOk) medalStoreNote.textContent = "Armazenamento local indisponível: a sessão não será persistida.";
   }
@@ -98,7 +101,7 @@ import { $, esc } from "./lib.js";
       return;
     }
     medalEmpty.hidden = true;
-    medalList.innerHTML = rows.map(function (md) {
+    function medalItemHtml(md) {
       var q = parsed.counts[md.dex];
       return "<li class=\"medal-item\">" +
         "<img src=\"" + esc(md.sprite) + "\" alt=\"" + esc(md.name) + "\" loading=\"lazy\" onerror=\"this.style.display='none';this.nextElementSibling.style.display='flex';\">" +
@@ -106,7 +109,25 @@ import { $, esc } from "./lib.js";
         "<span class=\"info\"><span class=\"name\">" + esc(md.name) + "</span> " +
         "<span class=\"meta\">#" + md.dex + " · " + esc(medalBuffLabel(md.bonus)) + "</span></span>" +
         "<span class=\"qty\">×" + q + "</span></li>";
-    }).join("");
+    }
+    if (medalGrouped) {
+      var catOf = {}, catOrder = [];
+      medalCatalog.buffs.forEach(function (b) {
+        catOf[b.id] = b.category;
+        if (catOrder.indexOf(b.category) < 0) catOrder.push(b.category);
+      });
+      var groups = {};
+      rows.forEach(function (md) {
+        var c = catOf[md.bonus];
+        (groups[c] = groups[c] || []).push(md);
+      });
+      medalList.innerHTML = catOrder.filter(function (c) { return groups[c]; }).map(function (c) {
+        return "<li class=\"medal-group-title\">" + esc(c) + "</li>" +
+          groups[c].map(medalItemHtml).join("");
+      }).join("");
+    } else {
+      medalList.innerHTML = rows.map(medalItemHtml).join("");
+    }
     var units = rows.reduce(function (a, md) { return a + parsed.counts[md.dex]; }, 0);
     medalSummary.hidden = false;
     medalSummary.textContent = rows.length + " espécie(s) · " + units + " medalha(s) combinam." +
@@ -122,6 +143,7 @@ import { $, esc } from "./lib.js";
     }).then(function (c) {
       medalCatalog = c;
       medalLoadStored();
+      medalGroup.checked = medalGrouped;
       medalRenderChips();
       medalApply();
     }).catch(function (err) {
@@ -173,6 +195,11 @@ import { $, esc } from "./lib.js";
     medalSelected = [];
     medalLog.value = "";
     medalRenderChips();
+    medalApply();
+  });
+  medalGroup.addEventListener("change", function () {
+    medalGrouped = medalGroup.checked;
+    medalSave();
     medalApply();
   });
 
