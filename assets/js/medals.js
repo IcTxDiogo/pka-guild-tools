@@ -141,6 +141,12 @@ import { $, esc } from "./lib.js";
     medalSave();
     medalApply();
   });
+  $("medalSelectAll").addEventListener("click", function () {
+    medalSelected = medalCatalog ? medalCatalog.buffs.map(function (b) { return b.id; }) : [];
+    medalRenderChips();
+    medalSave();
+    medalApply();
+  });
   $("medalClearFilter").addEventListener("click", function () {
     medalSelected = [];
     medalRenderChips();
