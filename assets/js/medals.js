@@ -111,22 +111,16 @@ import { $, esc } from "./lib.js";
         "<span class=\"qty\">×" + q + "</span></li>";
     }
     if (medalGrouped) {
-      var catOf = {}, catOrder = [];
-      medalCatalog.buffs.forEach(function (b) {
-        catOf[b.id] = b.category;
-        if (catOrder.indexOf(b.category) < 0) catOrder.push(b.category);
-      });
       var groups = {};
       rows.forEach(function (md) {
-        var c = catOf[md.bonus];
-        (groups[c] = groups[c] || []).push(md);
+        (groups[md.bonus] = groups[md.bonus] || []).push(md);
       });
-      medalList.innerHTML = catOrder.filter(function (c) { return groups[c]; }).map(function (c) {
-        return "<li class=\"medal-group-title\">" + esc(c) + "</li>" +
-          groups[c].map(medalItemHtml).join("");
+      medalList.innerHTML = medalCatalog.buffs.filter(function (b) { return groups[b.id]; }).map(function (b) {
+        return "<section class=\"medal-group\"><h3>" + esc(b.label) + "</h3><ul class=\"medal-list\">" +
+          groups[b.id].map(medalItemHtml).join("") + "</ul></section>";
       }).join("");
     } else {
-      medalList.innerHTML = rows.map(medalItemHtml).join("");
+      medalList.innerHTML = "<ul class=\"medal-list\">" + rows.map(medalItemHtml).join("") + "</ul>";
     }
     var units = rows.reduce(function (a, md) { return a + parsed.counts[md.dex]; }, 0);
     medalSummary.hidden = false;

@@ -19,8 +19,9 @@
 .medal-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; align-items: center; }
 .medal-group-toggle { display: inline-flex; gap: 8px; align-items: center; font-size: .9rem; color: var(--muted); cursor: pointer; margin-bottom: 4px; }
 .medal-group-toggle input { width: auto; accent-color: var(--accent); }
-.medal-group-title { list-style: none; font-size: .8rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; padding: 12px 4px 0; }
-.medal-group-title:first-child { padding-top: 0; }
+.medal-group { margin-top: 16px; }
+.medal-group:first-child { margin-top: 2px; }
+.medal-group h3 { font-size: .85rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
 .medal-hint {
     background: var(--card-2);
     border: 1px dashed var(--accent-dim);
