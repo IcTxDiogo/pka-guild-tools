@@ -170,4 +170,31 @@ import { $, esc } from "./lib.js";
     medalApply();
   });
 
+  var medalCopyPrompt = $("medalCopyPrompt"), medalPromptCache = null;
+  medalCopyPrompt.addEventListener("click", function () {
+    function done(ok) {
+      medalCopyPrompt.textContent = ok ? "Copiado!" : "Não deu pra copiar";
+      setTimeout(function () { medalCopyPrompt.textContent = "Copiar prompt do ChatGPT"; }, 1500);
+    }
+    function copyText(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
+      } else {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); done(true); } catch (e) { done(false); }
+        document.body.removeChild(ta);
+      }
+    }
+    if (medalPromptCache !== null) { copyText(medalPromptCache); return; }
+    medalCopyPrompt.textContent = "Carregando...";
+    fetch("data/skill-leitor-medalhas.md").then(function (res) {
+      if (!res.ok) throw new Error("sem prompt");
+      return res.text();
+    }).then(function (t) { medalPromptCache = t; copyText(t); })
+    .catch(function () { done(false); });
+  });
+
 export { loadMedals };

@@ -69,6 +69,9 @@ só as medalhas que combinam, com sprite, nome, Dex, bônus e quantidade (×N).
 - Filtro e log ficam salvos **só no navegador** (`localStorage`, chave
   `pka-guild-tools:medals:v1`); nada é enviado a servidor. Botão "Limpar dados
   locais" apaga.
+- Dica: tem um print das medalhas? O botão "Copiar prompt do ChatGPT" copia o
+  prompt (`data/skill-leitor-medalhas.md`); mande no ChatGPT junto com o print
+  e ele devolve o texto no padrão para colar na caixa.
 - Catálogo estático em `data/pka_medals_catalog.json` (151 medalhas, 20 bônus).
 
 ## Estrutura

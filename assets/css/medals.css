@@ -17,6 +17,18 @@
   }
 .medal-log:focus { border-color: var(--accent-dim); }
 .medal-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; align-items: center; }
+.medal-hint {
+    background: var(--card-2);
+    border: 1px dashed var(--accent-dim);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: .9rem;
+    color: var(--muted);
+    margin-bottom: 10px;
+    display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap;
+  }
+.medal-hint p { flex: 1; min-width: 200px; }
+.medal-hint p b { color: var(--text); }
 .medal-list { list-style: none; margin-top: 14px; display: grid; gap: 8px; }
 .medal-item {
     display: flex; align-items: center; gap: 12px;

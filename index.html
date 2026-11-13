@@ -133,6 +133,10 @@
     <section class="card">
       <h2>2. Cole o log</h2>
       <p class="medal-note" style="margin-top:0;margin-bottom:10px">Cole o log do jogo ou carregue o arquivo. Vale qualquer texto com <b>Dex #N</b> (ex: Você recebeu uma medalha (Dex #20)!).</p>
+      <div class="medal-hint">
+        <p><b>Tem um print das medalhas?</b> Copie o prompt, mande no ChatGPT junto com o print — ele devolve o texto no padrão. Depois cole aqui e clique em Filtrar.</p>
+        <button class="btn" id="medalCopyPrompt" type="button">Copiar prompt do ChatGPT</button>
+      </div>
       <textarea id="medalLog" class="medal-log" placeholder="Channel saved at ...&#10;10:38 Você recebeu uma medalha (Dex #7)!&#10;10:38 Você recebeu uma medalha (Dex #20)!"></textarea>
       <div class="medal-actions">
         <button class="btn primary" id="medalFilter" type="button">Filtrar</button>
