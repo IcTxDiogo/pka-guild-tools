@@ -1,6 +1,6 @@
 # pka-guild-tools
 
-Calculadora da meta semanal + histórico da guild. Página estática (HTML + CSS + JS, sem build, nada é salvo).
+Calculadora da meta semanal + histórico da guild + filtro de medalhas. Página estática (HTML + CSS + JS, sem build, sem backend). Filtro e log de medalhas ficam salvos só no navegador; o resto não salva nada.
 
 ## Rodar local
 
@@ -57,6 +57,19 @@ lvl,nome,daily,contrib,entrou
 A semana mais recente fica no topo do `weeks.json` (primeira entrada) e abre por padrão.
 A regra fica guardada por semana: semanas antigas mantêm a fórmula da época
 (ex: 25/10 era daily ×4, meta 140), então republicar não bagunça o passado.
+
+## Medalhas
+
+Aba "Medalhas": filtro de bônus (20 buffs em chips multiseleção) + caixa de log
+(colar com Ctrl+V ou carregar `.txt`/`.log`) + botão Filtrar. O resultado lista
+só as medalhas que combinam, com sprite, nome, Dex, bônus e quantidade (×N).
+
+- Parser: lê `Dex #N` em `Você recebeu uma medalha (Dex #N)!`; ignora o resto;
+  valida 1–151; preserva duplicadas (agrupa na exibição como ×N).
+- Filtro e log ficam salvos **só no navegador** (`localStorage`, chave
+  `pka-guild-tools:medals:v1`); nada é enviado a servidor. Botão "Limpar dados
+  locais" apaga.
+- Catálogo estático em `data/pka_medals_catalog.json` (151 medalhas, 20 bônus).
 
 ## Regras de pontos
 

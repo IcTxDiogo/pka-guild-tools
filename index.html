@@ -177,6 +177,52 @@
   .kick li { margin: 4px 0; }
   .kick .ok-note { color: var(--green); font-size: .93rem; }
   footer { text-align: center; color: var(--muted); font-size: .8rem; margin-top: 28px; }
+  .chips-group { margin-bottom: 4px; }
+  .chips-group h3 { font-size: .85rem; color: var(--muted); margin: 12px 0 8px; font-weight: 600; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    cursor: pointer;
+    background: var(--card-2); color: var(--muted);
+    border: 1px solid var(--border); border-radius: 99px;
+    padding: 6px 14px; font-size: .85rem; font-weight: 600;
+  }
+  .chip.on { background: var(--accent); border-color: var(--accent); color: #141414; }
+  .medal-log {
+    width: 100%; min-height: 140px; resize: vertical;
+    background: var(--card-2); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text);
+    font-size: .9rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    padding: 10px 12px; outline: none;
+  }
+  .medal-log:focus { border-color: var(--accent-dim); }
+  .medal-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; align-items: center; }
+  .btn {
+    cursor: pointer; border-radius: 8px; padding: 10px 18px;
+    font-size: .9rem; font-weight: 700;
+    border: 1px solid var(--border); background: var(--card-2); color: var(--text);
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #141414; }
+  .btn:active { transform: scale(.97); }
+  .file-label { cursor: pointer; font-size: .85rem; color: var(--muted); text-decoration: underline; }
+  .medal-list { list-style: none; margin-top: 14px; display: grid; gap: 8px; }
+  .medal-item {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--card-2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 12px;
+  }
+  .medal-item img { width: 48px; height: 48px; image-rendering: pixelated; flex-shrink: 0; }
+  .medal-item .img-fallback {
+    width: 48px; height: 48px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    font-size: .75rem; color: var(--muted);
+  }
+  .medal-item .info { flex: 1; min-width: 0; }
+  .medal-item .name { font-weight: 700; }
+  .medal-item .meta { font-size: .85rem; color: var(--muted); }
+  .medal-item .qty { font-weight: 700; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+  .medal-note { font-size: .85rem; color: var(--muted); margin-top: 10px; }
+  .medal-empty { color: var(--muted); font-size: .93rem; text-align: center; padding: 18px 0 6px; }
   [hidden] { display: none !important; }
   @media (max-width: 480px) {
     .grid { grid-template-columns: 1fr; }
@@ -197,6 +243,7 @@
   <nav>
     <button id="tabCalc" class="active" type="button">Calculadora</button>
     <button id="tabHist" type="button">Histórico</button>
+    <button id="tabMedals" type="button">Medalhas</button>
   </nav>
 
   <!-- ============ CALCULADORA ============ -->
@@ -290,7 +337,38 @@
     </section>
   </div>
 
-  <footer>Nada é salvo.</footer>
+  <!-- ============ MEDALHAS ============ -->
+  <div id="viewMedals" hidden>
+    <section class="card">
+      <h2>1. Quais bônus guardar?</h2>
+      <div id="medalChips"></div>
+      <div class="medal-actions">
+        <button class="btn" id="medalClearFilter" type="button">Limpar seleção</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>2. Cole o log</h2>
+      <p class="medal-note" style="margin-top:0;margin-bottom:10px">Cole o log do jogo ou carregue o arquivo. Vale qualquer texto com <b>Dex #N</b> (ex: Você recebeu uma medalha (Dex #20)!).</p>
+      <textarea id="medalLog" class="medal-log" placeholder="Channel saved at ...&#10;10:38 Você recebeu uma medalha (Dex #7)!&#10;10:38 Você recebeu uma medalha (Dex #20)!"></textarea>
+      <div class="medal-actions">
+        <button class="btn primary" id="medalFilter" type="button">Filtrar</button>
+        <label class="file-label" for="medalFile">ou carregar arquivo .txt/.log</label>
+        <input id="medalFile" type="file" accept=".txt,.log,.csv,text/plain" hidden>
+        <button class="btn" id="medalWipe" type="button">Limpar dados locais</button>
+      </div>
+      <p class="medal-note" id="medalStoreNote">Filtro e log ficam salvos só neste navegador. Nada é enviado a servidor.</p>
+    </section>
+
+    <section class="card">
+      <h2>Guardar estas</h2>
+      <div class="medal-empty" id="medalEmpty">Selecione ao menos um bônus e cole o log acima.</div>
+      <ul class="medal-list" id="medalList"></ul>
+      <p class="medal-note" id="medalSummary" hidden></p>
+    </section>
+  </div>
+
+  <footer>Nada é enviado a servidor. A guia Medalhas guarda filtro e log só neste navegador.</footer>
 
 </div>
 
@@ -302,8 +380,8 @@
 
   var $ = function (id) { return document.getElementById(id); };
   var wrap = $("wrap"), subtitle = $("subtitle");
-  var tabCalc = $("tabCalc"), tabHist = $("tabHist");
-  var viewCalc = $("viewCalc"), viewHist = $("viewHist");
+  var tabCalc = $("tabCalc"), tabHist = $("tabHist"), tabMedals = $("tabMedals");
+  var viewCalc = $("viewCalc"), viewHist = $("viewHist"), viewMedals = $("viewMedals");
 
   function num(el, fallback) {
     var v = parseFloat(String(el.value).replace(",", "."));
@@ -315,19 +393,24 @@
 
   /* ---------- abas ---------- */
   function show(which) {
-    var isCalc = which === "calc";
-    viewCalc.hidden = !isCalc;
-    viewHist.hidden = isCalc;
-    tabCalc.className = isCalc ? "active" : "";
-    tabHist.className = isCalc ? "" : "active";
-    wrap.className = "wrap" + (isCalc ? "" : " wide");
-    subtitle.textContent = isCalc
+    viewCalc.hidden = which !== "calc";
+    viewHist.hidden = which !== "hist";
+    viewMedals.hidden = which !== "medals";
+    tabCalc.className = which === "calc" ? "active" : "";
+    tabHist.className = which === "hist" ? "active" : "";
+    tabMedals.className = which === "medals" ? "active" : "";
+    wrap.className = "wrap" + (which === "calc" ? "" : " wide");
+    subtitle.textContent = which === "calc"
       ? "Coloque o que você fez na semana e veja quanto falta."
-      : "Ranking das semanas passadas e lista de kick.";
-    if (!isCalc) loadHistory();
+      : which === "hist"
+      ? "Ranking das semanas passadas e lista de kick."
+      : "Filtre o log e veja quais medalhas guardar.";
+    if (which === "hist") loadHistory();
+    if (which === "medals") loadMedals();
   }
   tabCalc.addEventListener("click", function () { show("calc"); });
   tabHist.addEventListener("click", function () { show("hist"); });
+  tabMedals.addEventListener("click", function () { show("medals"); });
 
   /* ---------- calculadora ---------- */
   var daily = $("daily"), contrib = $("contrib"),
@@ -508,6 +591,176 @@
   }
   weekSel.addEventListener("change", function () {
     if (weeks) renderWeek(weeks[weekSel.selectedIndex] || weeks[0]);
+  });
+
+  /* ---------- medalhas ---------- */
+  var MEDAL_STORE_KEY = "pka-guild-tools:medals:v1";
+  var medalCatalog = null, medalStoreOk = true, medalsLoaded = false;
+  var medalSelected = [];
+  var medalChips = $("medalChips"), medalLog = $("medalLog"),
+      medalFile = $("medalFile"), medalFilterBtn = $("medalFilter"),
+      medalWipe = $("medalWipe"), medalList = $("medalList"),
+      medalEmpty = $("medalEmpty"), medalSummary = $("medalSummary"),
+      medalStoreNote = $("medalStoreNote");
+
+  function medalBuffLabel(id) {
+    var b = medalCatalog.buffs.filter(function (x) { return x.id === id; })[0];
+    return b ? b.label : id;
+  }
+
+  function medalSave() {
+    if (!medalStoreOk) return;
+    try {
+      localStorage.setItem(MEDAL_STORE_KEY, JSON.stringify({
+        version: 1, selectedBonusIds: medalSelected, logText: medalLog.value
+      }));
+    } catch (e) {
+      medalStoreOk = false;
+      medalStoreNote.textContent = "Armazenamento local indisponível: a sessão não será persistida.";
+    }
+  }
+
+  function medalLoadStored() {
+    var raw = null;
+    try { raw = localStorage.getItem(MEDAL_STORE_KEY); }
+    catch (e) { medalStoreOk = false; }
+    if (!raw) return;
+    try {
+      var s = JSON.parse(raw);
+      if (s && Array.isArray(s.selectedBonusIds)) {
+        medalSelected = s.selectedBonusIds.filter(function (id) {
+          return medalCatalog.buffs.some(function (b) { return b.id === id; });
+        });
+      }
+      if (s && typeof s.logText === "string") medalLog.value = s.logText.slice(0, 200000);
+    } catch (e) { /* dado corrompido: ignora e segue com padrão */ }
+    if (!medalStoreOk) medalStoreNote.textContent = "Armazenamento local indisponível: a sessão não será persistida.";
+  }
+
+  function medalRenderChips() {
+    var cats = [];
+    medalCatalog.buffs.forEach(function (b) { if (cats.indexOf(b.category) < 0) cats.push(b.category); });
+    medalChips.innerHTML = cats.map(function (c) {
+      var btns = medalCatalog.buffs.filter(function (b) { return b.category === c; }).map(function (b) {
+        var on = medalSelected.indexOf(b.id) >= 0;
+        return "<button type=\"button\" class=\"" + "chip" + (on ? " on" : "") + "\" data-bonus=\"" + b.id + "\">" + esc(b.label) + "</button>";
+      }).join("");
+      return "<div class=\"chips-group\"><h3>" + esc(c) + "</h3><div class=\"chips\">" + btns + "</div></div>";
+    }).join("");
+  }
+
+  function medalParse(text) {
+    var counts = {}, valid = 0, invalid = 0;
+    var re = /Dex\s*#\s*(\d+)/gi, m;
+    while ((m = re.exec(text)) !== null) {
+      var n = parseInt(m[1], 10);
+      if (n >= 1 && n <= 151) { counts[n] = (counts[n] || 0) + 1; valid++; }
+      else invalid++;
+    }
+    return { counts: counts, valid: valid, invalid: invalid };
+  }
+
+  function medalApply() {
+    if (!medalCatalog) return;
+    if (!medalSelected.length) {
+      medalList.innerHTML = "";
+      medalSummary.hidden = true;
+      medalEmpty.hidden = false;
+      medalEmpty.textContent = "Selecione ao menos um bônus acima para ver o resultado.";
+      return;
+    }
+    var parsed = medalParse(medalLog.value);
+    if (!parsed.valid) {
+      medalList.innerHTML = "";
+      medalSummary.hidden = true;
+      medalEmpty.hidden = false;
+      medalEmpty.textContent = medalLog.value.trim()
+        ? "Nenhuma linha válida no log. O formato esperado é: Você recebeu uma medalha (Dex #N)!"
+        : "Cole o log acima e clique em Filtrar.";
+      return;
+    }
+    var sel = {};
+    medalSelected.forEach(function (id) { sel[id] = true; });
+    var rows = medalCatalog.medals
+      .filter(function (md) { return sel[md.bonus] && parsed.counts[md.dex]; })
+      .sort(function (a, b) { return a.dex - b.dex; });
+    if (!rows.length) {
+      medalList.innerHTML = "";
+      medalSummary.hidden = true;
+      medalEmpty.hidden = false;
+      medalEmpty.textContent = "Nenhuma medalha combina com os bônus selecionados.";
+      return;
+    }
+    medalEmpty.hidden = true;
+    medalList.innerHTML = rows.map(function (md) {
+      var q = parsed.counts[md.dex];
+      return "<li class=\"medal-item\">" +
+        "<img src=\"" + esc(md.sprite) + "\" alt=\"" + esc(md.name) + "\" loading=\"lazy\" onerror=\"this.style.display='none';this.nextElementSibling.style.display='flex';\">" +
+        "<span class=\"img-fallback\" style=\"display:none\">#" + md.dex + "</span>" +
+        "<span class=\"info\"><span class=\"name\">" + esc(md.name) + "</span> " +
+        "<span class=\"meta\">#" + md.dex + " · " + esc(medalBuffLabel(md.bonus)) + "</span></span>" +
+        "<span class=\"qty\">×" + q + "</span></li>";
+    }).join("");
+    var units = rows.reduce(function (a, md) { return a + parsed.counts[md.dex]; }, 0);
+    medalSummary.hidden = false;
+    medalSummary.textContent = rows.length + " espécie(s) · " + units + " medalha(s) combinam." +
+      (parsed.invalid ? " " + parsed.invalid + " número(s) fora de 1–151 ignorado(s)." : "");
+  }
+
+  function loadMedals() {
+    if (medalsLoaded) { medalApply(); return; }
+    medalsLoaded = true;
+    fetch("data/pka_medals_catalog.json").then(function (res) {
+      if (!res.ok) throw new Error("sem catálogo");
+      return res.json();
+    }).then(function (c) {
+      medalCatalog = c;
+      medalLoadStored();
+      medalRenderChips();
+      medalApply();
+    }).catch(function (err) {
+      medalEmpty.hidden = false;
+      medalEmpty.textContent = "Não deu pra carregar o catálogo de medalhas (" + err.message + ").";
+    });
+  }
+
+  medalChips.addEventListener("click", function (e) {
+    var t = e.target && e.target.closest ? e.target.closest("[data-bonus]") : null;
+    if (!t) return;
+    var id = t.getAttribute("data-bonus");
+    var i = medalSelected.indexOf(id);
+    if (i >= 0) { medalSelected.splice(i, 1); t.className = "chip"; }
+    else { medalSelected.push(id); t.className = "chip on"; }
+    medalSave();
+    medalApply();
+  });
+  $("medalClearFilter").addEventListener("click", function () {
+    medalSelected = [];
+    medalRenderChips();
+    medalSave();
+    medalApply();
+  });
+  medalFilterBtn.addEventListener("click", function () { medalSave(); medalApply(); });
+  medalLog.addEventListener("input", function () { medalSave(); });
+  medalFile.addEventListener("change", function () {
+    var f = medalFile.files && medalFile.files[0];
+    if (!f) return;
+    var rd = new FileReader();
+    rd.onload = function () {
+      medalLog.value = String(rd.result || "").slice(0, 200000);
+      medalSave();
+      medalApply();
+    };
+    rd.readAsText(f);
+    medalFile.value = "";
+  });
+  medalWipe.addEventListener("click", function () {
+    if (!confirm("Apagar filtro e log salvos neste navegador?")) return;
+    try { localStorage.removeItem(MEDAL_STORE_KEY); } catch (e) {}
+    medalSelected = [];
+    medalLog.value = "";
+    medalRenderChips();
+    medalApply();
   });
 })();
 </script>
