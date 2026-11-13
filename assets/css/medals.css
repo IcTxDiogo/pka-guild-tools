@@ -1,0 +1,38 @@
+.chips-group { margin-bottom: 4px; }
+.chips-group h3 { font-size: .85rem; color: var(--muted); margin: 12px 0 8px; font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+    cursor: pointer;
+    background: var(--card-2); color: var(--muted);
+    border: 1px solid var(--border); border-radius: 99px;
+    padding: 6px 14px; font-size: .85rem; font-weight: 600;
+  }
+.chip.on { background: var(--accent); border-color: var(--accent); color: #141414; }
+.medal-log {
+    width: 100%; min-height: 140px; resize: vertical;
+    background: var(--card-2); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text);
+    font-size: .9rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    padding: 10px 12px; outline: none;
+  }
+.medal-log:focus { border-color: var(--accent-dim); }
+.medal-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; align-items: center; }
+.medal-list { list-style: none; margin-top: 14px; display: grid; gap: 8px; }
+.medal-item {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--card-2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 12px;
+  }
+.medal-item img { width: 48px; height: 48px; image-rendering: pixelated; flex-shrink: 0; }
+.medal-item .img-fallback {
+    width: 48px; height: 48px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    font-size: .75rem; color: var(--muted);
+  }
+.medal-item .info { flex: 1; min-width: 0; }
+.medal-item .name { font-weight: 700; }
+.medal-item .meta { font-size: .85rem; color: var(--muted); }
+.medal-item .qty { font-weight: 700; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+.medal-note { font-size: .85rem; color: var(--muted); margin-top: 10px; }
+.medal-empty { color: var(--muted); font-size: .93rem; text-align: center; padding: 18px 0 6px; }

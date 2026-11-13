@@ -1,0 +1,29 @@
+.week-head {
+    display: flex; gap: 12px; align-items: end; justify-content: space-between;
+    flex-wrap: wrap; margin-bottom: 16px;
+  }
+.week-head .note { font-size: .85rem; color: var(--muted); }
+.table-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+th, td { padding: 8px 10px; text-align: left; white-space: nowrap; }
+thead th {
+    background: #2f6b4f;
+    color: #fff;
+    font-size: .78rem; text-transform: uppercase; letter-spacing: .04em;
+    position: sticky; top: 0;
+  }
+tbody tr { border-top: 1px solid var(--border); }
+tbody tr:nth-child(even) { background: var(--card-2); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+td.pts { font-weight: 700; color: #fff; }
+td.pts.ok { background: #1e8fa8; }
+td.pts.mid { background: var(--orange); color: #141414; }
+td.pts.low { background: var(--red); color: #fff; }
+td.just { color: var(--muted); font-size: .85rem; }
+tr.kicked td.name { text-decoration: line-through; color: var(--muted); }
+tr.kicked { opacity: .85; }
+.kick { border-color: var(--red); }
+.kick h2 { color: var(--red); }
+.kick ul { padding-left: 20px; font-size: .93rem; }
+.kick li { margin: 4px 0; }
+.kick .ok-note { color: var(--green); font-size: .93rem; }

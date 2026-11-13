@@ -71,6 +71,17 @@ só as medalhas que combinam, com sprite, nome, Dex, bônus e quantidade (×N).
   locais" apaga.
 - Catálogo estático em `data/pka_medals_catalog.json` (151 medalhas, 20 bônus).
 
+## Estrutura
+
+Sem build: `index.html` é só o shell (views + `<link>`/`<script type="module">`).
+Cada aba tem seu CSS (`assets/css/<aba>.css`) e seu JS (`assets/js/<aba>.js`);
+compartilhados ficam em `assets/css/base.css` e `assets/js/lib.js`
+(`$`, `num`, `fmt`, `esc`). `assets/js/app.js` tem a tabela de rotas `TABS`.
+
+Nova aba = 1 entrada no `<nav>` + 1 `<div id="view...">` + par
+css/js + 1 rota em `TABS`. Rodar sempre via `python3 -m http.server`
+(módulos ES não abrem via `file://`).
+
 ## Regras de pontos
 
 - Dailys: pontos do jogo × 2 (normal 1, caveira 2, primal 4 — o jogo já soma)
