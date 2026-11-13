@@ -75,6 +75,12 @@ footer { text-align: center; color: var(--muted); font-size: .8rem; margin-top: 
 .btn.primary { background: var(--accent); border-color: var(--accent); color: #141414; }
 .btn:active { transform: scale(.97); }
 .file-label { cursor: pointer; font-size: .85rem; color: var(--muted); text-decoration: underline; }
+.donate-text { color: var(--muted); font-size: .93rem; margin-bottom: 14px; }
+.donate-row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.donate-row img { width: 160px; height: 160px; border-radius: 8px; background: #fff; padding: 6px; }
+.donate-info { flex: 1; min-width: 200px; }
+.donate-key { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .8rem; word-break: break-all; color: var(--text); }
+.donate-info .medal-actions { margin-top: 8px; }
 [hidden] { display: none !important; }
 nav button:focus-visible, .chip:focus-visible, .btn:focus-visible,
 .phrase button:focus-visible, input:focus-visible, select:focus-visible,
