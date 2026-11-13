@@ -17,7 +17,9 @@
   }
 .medal-log:focus { border-color: var(--accent-dim); }
 .medal-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; align-items: center; }
-.medal-group-toggle { display: inline-flex; gap: 8px; align-items: center; font-size: .9rem; color: var(--muted); cursor: pointer; margin-bottom: 4px; }
+.medal-result-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.medal-result-head h2 { margin-bottom: 0; }
+.medal-group-toggle { display: inline-flex; gap: 8px; align-items: center; font-size: .9rem; color: var(--muted); cursor: pointer; }
 .medal-group-toggle input { width: auto; accent-color: var(--accent); }
 .medal-group { margin-top: 16px; }
 .medal-group:first-child { margin-top: 2px; }
