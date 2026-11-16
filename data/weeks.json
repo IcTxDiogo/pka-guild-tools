@@ -1,5 +1,14 @@
 [
   {
+    "id": "2026-11-15",
+    "label": "15/11/2026",
+    "file": "data/2026-11-15.csv",
+    "meta": 150,
+    "dailyMult": 2,
+    "contribDiv": 100,
+    "ruleNote": "Regra atual: daily ×2 + contribuição ÷100 · meta 150"
+  },
+  {
     "id": "2026-11-08",
     "label": "08/11/2026",
     "file": "data/2026-11-08.csv",
