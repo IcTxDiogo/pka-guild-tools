@@ -123,7 +123,15 @@
   <!-- ============ MEDALHAS ============ -->
   <div id="viewMedals" hidden>
     <section class="card">
-      <h2>1. Quais bônus guardar?</h2>
+      <h2>O que você quer fazer?</h2>
+      <div class="medal-modes" role="tablist" aria-label="Modo das medalhas">
+        <button class="btn primary" id="medalModeLog" type="button" role="tab" aria-selected="true">Filtrar meu log</button>
+        <button class="btn" id="medalModeCatalog" type="button" role="tab" aria-selected="false">Ver catálogo</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>1. Quais bônus listar?</h2>
       <div id="medalChips"></div>
       <div class="medal-actions">
         <button class="btn" id="medalSelectAll" type="button">Selecionar todos</button>
@@ -131,7 +139,7 @@
       </div>
     </section>
 
-    <section class="card">
+    <section class="card" id="medalLogCard">
       <h2>2. Cole o log</h2>
       <p class="medal-note" style="margin-top:0;margin-bottom:10px">Cole o log do jogo ou carregue o arquivo. Vale qualquer texto com <b>Dex #N</b> (ex: Você recebeu uma medalha (Dex #20)!).</p>
       <div class="medal-hint">
@@ -148,7 +156,7 @@
       <p class="medal-note" id="medalStoreNote">Filtro e log ficam salvos só neste navegador. Nada é enviado a servidor.</p>
     </section>
 
-    <section class="card">
+    <section class="card" id="medalResultCard">
       <div class="medal-result-head">
         <h2>Guardar estas</h2>
         <label class="medal-group-toggle"><input type="checkbox" id="medalGroup" checked> Agrupar por tipo de bônus</label>
@@ -156,6 +164,17 @@
       <div class="medal-empty" id="medalEmpty">Selecione ao menos um bônus e cole o log acima.</div>
       <div id="medalList"></div>
       <p class="medal-note" id="medalSummary" hidden></p>
+    </section>
+
+    <section class="card" id="medalCatalogCard" hidden>
+      <div class="medal-result-head">
+        <h2>Catálogo</h2>
+        <label class="medal-group-toggle"><input type="checkbox" id="medalGroupCatalog" checked> Agrupar por tipo de bônus</label>
+      </div>
+      <p class="medal-note" style="margin-top:0;margin-bottom:10px">Sem bônus selecionado lista todas as 151. O catálogo mostra foto, nome, Dex e bônus de cada medalha.</p>
+      <div class="medal-empty" id="medalCatalogEmpty" hidden>Carregando catálogo…</div>
+      <div id="medalCatalogList"></div>
+      <p class="medal-note" id="medalCatalogSummary" hidden></p>
     </section>
   </div>
 

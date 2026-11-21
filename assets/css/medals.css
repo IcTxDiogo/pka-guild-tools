@@ -1,3 +1,5 @@
+.medal-modes { display: flex; gap: 8px; flex-wrap: wrap; }
+.medal-modes .btn { flex: 1; min-width: 160px; }
 .chips-group { margin-bottom: 4px; }
 .chips-group h3 { font-size: .85rem; color: var(--muted); margin: 12px 0 8px; font-weight: 600; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
