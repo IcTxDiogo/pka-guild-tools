@@ -65,6 +65,16 @@ import { $, esc } from "./lib.js";
     }).join("");
   }
 
+  function medalPenaltyText(md) {
+    if (md.penaltyBonus) return "▼ " + medalBuffLabel(md.penaltyBonus);
+    if (md.penalty === "Nenhuma") return "☆ sem penalidade";
+    return "▼ " + (md.penalty || "?");
+  }
+
+  function medalMetaHtml(md) {
+    return "<span class=\"meta\">#" + md.dex + " · ▲ " + esc(medalBuffLabel(md.bonus)) +
+      " · " + esc(medalPenaltyText(md)) + "</span>";
+  }
   function medalParse(text) {
     var counts = {}, valid = 0, invalid = 0;
     var re = /Dex\s*#\s*(\d+)/gi, m;
@@ -114,7 +124,7 @@ import { $, esc } from "./lib.js";
         "<img src=\"" + esc(md.sprite) + "\" alt=\"" + esc(md.name) + "\" loading=\"lazy\" onerror=\"this.style.display='none';this.nextElementSibling.style.display='flex';\">" +
         "<span class=\"img-fallback\" style=\"display:none\">#" + md.dex + "</span>" +
         "<span class=\"info\"><span class=\"name\">" + esc(md.name) + "</span> " +
-        "<span class=\"meta\">#" + md.dex + " · " + esc(medalBuffLabel(md.bonus)) + "</span></span>" +
+        medalMetaHtml(md) + "</span>" +
         "<span class=\"qty\">×" + q + "</span></li>";
     }
     if (medalGrouped) {
@@ -140,7 +150,7 @@ import { $, esc } from "./lib.js";
       "<img src=\"" + esc(md.sprite) + "\" alt=\"" + esc(md.name) + "\" loading=\"lazy\" onerror=\"this.style.display='none';this.nextElementSibling.style.display='flex';\">" +
       "<span class=\"img-fallback\" style=\"display:none\">#" + md.dex + "</span>" +
       "<span class=\"info\"><span class=\"name\">" + esc(md.name) + "</span> " +
-      "<span class=\"meta\">#" + md.dex + " · " + esc(medalBuffLabel(md.bonus)) + "</span></span></li>";
+      medalMetaHtml(md) + "</span></li>";
   }
 
   function medalApplyCatalog() {

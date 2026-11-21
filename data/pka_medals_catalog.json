@@ -1,11 +1,12 @@
 {
   "schemaVersion": 1,
-  "lastVerified": "2026-11-13",
-  "description": "Catálogo estático de medalhas PKA (somente bônus positivos), para filtro local sem backend.",
+  "lastVerified": "2026-11-21",
+  "description": "Catálogo estático de medalhas PKA (bônus ▲ e penalidade ▼ por espécie), para filtro local sem backend. Penalidades via PKA Tools, conferidas com a wiki oficial; divergências listadas em penaltyDivergencesVsWiki para conferência no jogo.",
   "source": {
     "medals": "https://pkatools.com.br/medalhas",
     "imageBase": "https://play.pokemonshowdown.com/sprites/gen5/",
-    "crossCheck": "https://pokealliancewiki.com/pt/sistemas/medals/"
+    "crossCheck": "https://pokealliancewiki.com/pt/sistemas/medals/",
+    "penalty": "https://pkatools.com.br/medalhas"
   },
   "buffs": [
     {
@@ -134,912 +135,1323 @@
       "dex": 1,
       "name": "Bulbasaur",
       "bonus": "defesa",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/bulbasaur.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/bulbasaur.png",
+      "penalty": "Aumento de Dano",
+      "penaltyBonus": "dano"
     },
     {
       "dex": 2,
       "name": "Ivysaur",
       "bonus": "hp",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/ivysaur.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/ivysaur.png",
+      "penalty": "Velocidade do Pokémon",
+      "penaltyBonus": "pokemon_speed"
     },
     {
       "dex": 3,
       "name": "Venusaur",
       "bonus": "pokemon_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/venusaur.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/venusaur.png",
+      "penalty": "Aumento de HP",
+      "penaltyBonus": "hp"
     },
     {
       "dex": 4,
       "name": "Charmander",
       "bonus": "character_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/charmander.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/charmander.png",
+      "penalty": "Velocidade do Pokémon",
+      "penaltyBonus": "pokemon_speed"
     },
     {
       "dex": 5,
       "name": "Charmeleon",
       "bonus": "crit_chance",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/charmeleon.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/charmeleon.png",
+      "penalty": "Velocidade do Personagem",
+      "penaltyBonus": "character_speed"
     },
     {
       "dex": 6,
       "name": "Charizard",
       "bonus": "crit_damage",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/charizard.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/charizard.png",
+      "penalty": "Aumento de Defesa",
+      "penaltyBonus": "defesa"
     },
     {
       "dex": 7,
       "name": "Squirtle",
       "bonus": "life_leech",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/squirtle.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/squirtle.png",
+      "penalty": "Dano Crítico",
+      "penaltyBonus": "crit_damage"
     },
     {
       "dex": 8,
       "name": "Wartortle",
       "bonus": "precision",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/wartortle.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/wartortle.png",
+      "penalty": "Roubo de Vida",
+      "penaltyBonus": "life_leech"
     },
     {
       "dex": 9,
       "name": "Blastoise",
       "bonus": "evasion",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/blastoise.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/blastoise.png",
+      "penalty": "Skill de Pesca",
+      "penaltyBonus": null
     },
     {
       "dex": 10,
       "name": "Caterpie",
       "bonus": "shiny_fishing",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/caterpie.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/caterpie.png",
+      "penalty": "Evasão",
+      "penaltyBonus": "evasion"
     },
     {
       "dex": 11,
       "name": "Metapod",
       "bonus": "shiny_headbutt",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/metapod.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/metapod.png",
+      "penalty": "Pesca Shiny",
+      "penaltyBonus": "shiny_fishing"
     },
     {
       "dex": 12,
       "name": "Butterfree",
       "bonus": "loot",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/butterfree.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/butterfree.png",
+      "penalty": "Headbutt Shiny",
+      "penaltyBonus": "shiny_headbutt"
     },
     {
       "dex": 13,
       "name": "Weedle",
       "bonus": "catch",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/weedle.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/weedle.png",
+      "penalty": "Aumento de Loot",
+      "penaltyBonus": "loot"
     },
     {
       "dex": 14,
       "name": "Kakuna",
       "bonus": "shiny_catch",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/kakuna.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/kakuna.png",
+      "penalty": "Captura",
+      "penaltyBonus": "catch"
     },
     {
       "dex": 15,
       "name": "Beedrill",
       "bonus": "shiny_charm",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/beedrill.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/beedrill.png",
+      "penalty": "Skill de Headbutt",
+      "penaltyBonus": null
     },
     {
       "dex": 16,
       "name": "Pidgey",
       "bonus": "crit_resist",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/pidgey.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/pidgey.png",
+      "penalty": "Amuleto Shiny",
+      "penaltyBonus": "shiny_charm"
     },
     {
       "dex": 17,
       "name": "Pidgeotto",
       "bonus": "fly_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/pidgeotto.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/pidgeotto.png",
+      "penalty": "Pesca Extra",
+      "penaltyBonus": null
     },
     {
       "dex": 18,
       "name": "Pidgeot",
       "bonus": "fly_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/pidgeot.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/pidgeot.png",
+      "penalty": "Velocidade de Surf",
+      "penaltyBonus": "surf_speed"
     },
     {
       "dex": 19,
       "name": "Rattata",
       "bonus": "ride_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/rattata.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/rattata.png",
+      "penalty": "Velocidade de Surf",
+      "penaltyBonus": "surf_speed"
     },
     {
       "dex": 20,
       "name": "Raticate",
       "bonus": "dano",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/raticate.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/raticate.png",
+      "penalty": "Velocidade de Cavalgar",
+      "penaltyBonus": "ride_speed"
     },
     {
       "dex": 21,
       "name": "Spearow",
       "bonus": "defesa",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/spearow.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/spearow.png",
+      "penalty": "Aumento de Dano",
+      "penaltyBonus": "dano"
     },
     {
       "dex": 22,
       "name": "Fearow",
       "bonus": "hp",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/fearow.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/fearow.png",
+      "penalty": "Aumento de Defesa",
+      "penaltyBonus": "defesa"
     },
     {
       "dex": 23,
       "name": "Ekans",
       "bonus": "pokemon_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/ekans.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/ekans.png",
+      "penalty": "Aumento de HP",
+      "penaltyBonus": "hp"
     },
     {
       "dex": 24,
       "name": "Arbok",
       "bonus": "character_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/arbok.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/arbok.png",
+      "penalty": "Velocidade do Pokémon",
+      "penaltyBonus": "pokemon_speed"
     },
     {
       "dex": 25,
       "name": "Pikachu",
       "bonus": "crit_chance",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/pikachu.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/pikachu.png",
+      "penalty": "Velocidade do Personagem",
+      "penaltyBonus": "character_speed"
     },
     {
       "dex": 26,
       "name": "Raichu",
       "bonus": "crit_damage",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/raichu.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/raichu.png",
+      "penalty": "Chance de Crítico",
+      "penaltyBonus": "crit_chance"
     },
     {
       "dex": 27,
       "name": "Sandshrew",
       "bonus": "life_leech",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/sandshrew.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/sandshrew.png",
+      "penalty": "Dano Crítico",
+      "penaltyBonus": "crit_damage"
     },
     {
       "dex": 28,
       "name": "Sandslash",
       "bonus": "precision",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/sandslash.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/sandslash.png",
+      "penalty": "Roubo de Vida",
+      "penaltyBonus": "life_leech"
     },
     {
       "dex": 29,
       "name": "Nidoran♀",
       "bonus": "evasion",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/nidoranf.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/nidoranf.png",
+      "penalty": "Skill de Pesca",
+      "penaltyBonus": null
     },
     {
       "dex": 30,
       "name": "Nidorina",
       "bonus": "shiny_fishing",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/nidorina.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/nidorina.png",
+      "penalty": "Evasão",
+      "penaltyBonus": "evasion"
     },
     {
       "dex": 31,
       "name": "Nidoqueen",
       "bonus": "shiny_headbutt",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/nidoqueen.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/nidoqueen.png",
+      "penalty": "Pesca Shiny",
+      "penaltyBonus": "shiny_fishing"
     },
     {
       "dex": 32,
       "name": "Nidoran♂",
       "bonus": "loot",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/nidoranm.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/nidoranm.png",
+      "penalty": "Headbutt Shiny",
+      "penaltyBonus": "shiny_headbutt"
     },
     {
       "dex": 33,
       "name": "Nidorino",
       "bonus": "catch",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/nidorino.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/nidorino.png",
+      "penalty": "Aumento de Loot",
+      "penaltyBonus": "loot"
     },
     {
       "dex": 34,
       "name": "Nidoking",
       "bonus": "shiny_catch",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/nidoking.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/nidoking.png",
+      "penalty": "Captura",
+      "penaltyBonus": "catch"
     },
     {
       "dex": 35,
       "name": "Clefairy",
       "bonus": "shiny_charm",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/clefairy.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/clefairy.png",
+      "penalty": "Captura Shiny",
+      "penaltyBonus": "shiny_catch"
     },
     {
       "dex": 36,
       "name": "Clefable",
       "bonus": "crit_resist",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/clefable.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/clefable.png",
+      "penalty": "Amuleto Shiny",
+      "penaltyBonus": "shiny_charm"
     },
     {
       "dex": 37,
       "name": "Vulpix",
       "bonus": "fly_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/vulpix.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/vulpix.png",
+      "penalty": "Pesca Extra",
+      "penaltyBonus": null
     },
     {
       "dex": 38,
       "name": "Ninetales",
       "bonus": "surf_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/ninetales.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/ninetales.png",
+      "penalty": "Velocidade de Voo",
+      "penaltyBonus": "fly_speed"
     },
     {
       "dex": 39,
       "name": "Jigglypuff",
       "bonus": "ride_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/jigglypuff.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/jigglypuff.png",
+      "penalty": "Velocidade de Surf",
+      "penaltyBonus": "surf_speed"
     },
     {
       "dex": 40,
       "name": "Wigglytuff",
       "bonus": "dano",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/wigglytuff.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/wigglytuff.png",
+      "penalty": "Velocidade de Cavalgar",
+      "penaltyBonus": "ride_speed"
     },
     {
       "dex": 41,
       "name": "Zubat",
       "bonus": "defesa",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/zubat.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/zubat.png",
+      "penalty": "Roubo de Vida",
+      "penaltyBonus": "life_leech"
     },
     {
       "dex": 42,
       "name": "Golbat",
       "bonus": "hp",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/golbat.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/golbat.png",
+      "penalty": "Aumento de Defesa",
+      "penaltyBonus": "defesa"
     },
     {
       "dex": 43,
       "name": "Oddish",
       "bonus": "pokemon_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/oddish.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/oddish.png",
+      "penalty": "Aumento de HP",
+      "penaltyBonus": "hp"
     },
     {
       "dex": 44,
       "name": "Gloom",
       "bonus": "character_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/gloom.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/gloom.png",
+      "penalty": "Velocidade do Pokémon",
+      "penaltyBonus": "pokemon_speed"
     },
     {
       "dex": 45,
       "name": "Vileplume",
       "bonus": "crit_chance",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/vileplume.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/vileplume.png",
+      "penalty": "Velocidade do Personagem",
+      "penaltyBonus": "character_speed"
     },
     {
       "dex": 46,
       "name": "Paras",
       "bonus": "crit_damage",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/paras.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/paras.png",
+      "penalty": "Chance de Crítico",
+      "penaltyBonus": "crit_chance"
     },
     {
       "dex": 47,
       "name": "Parasect",
       "bonus": "life_leech",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/parasect.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/parasect.png",
+      "penalty": "Dano Crítico",
+      "penaltyBonus": "crit_damage"
     },
     {
       "dex": 48,
       "name": "Venonat",
       "bonus": "precision",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/venonat.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/venonat.png",
+      "penalty": "Roubo de Vida",
+      "penaltyBonus": "life_leech"
     },
     {
       "dex": 49,
       "name": "Venomoth",
       "bonus": "evasion",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/venomoth.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/venomoth.png",
+      "penalty": "Skill de Pesca",
+      "penaltyBonus": null
     },
     {
       "dex": 50,
       "name": "Diglett",
       "bonus": "shiny_fishing",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/diglett.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/diglett.png",
+      "penalty": "Evasão",
+      "penaltyBonus": "evasion"
     },
     {
       "dex": 51,
       "name": "Dugtrio",
       "bonus": "shiny_headbutt",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/dugtrio.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/dugtrio.png",
+      "penalty": "Pesca Shiny",
+      "penaltyBonus": "shiny_fishing"
     },
     {
       "dex": 52,
       "name": "Meowth",
       "bonus": "loot",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/meowth.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/meowth.png",
+      "penalty": "Headbutt Shiny",
+      "penaltyBonus": "shiny_headbutt"
     },
     {
       "dex": 53,
       "name": "Persian",
       "bonus": "catch",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/persian.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/persian.png",
+      "penalty": "Aumento de Loot",
+      "penaltyBonus": "loot"
     },
     {
       "dex": 54,
       "name": "Psyduck",
       "bonus": "shiny_catch",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/psyduck.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/psyduck.png",
+      "penalty": "Captura",
+      "penaltyBonus": "catch"
     },
     {
       "dex": 55,
       "name": "Golduck",
       "bonus": "shiny_charm",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/golduck.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/golduck.png",
+      "penalty": "Captura Shiny",
+      "penaltyBonus": "shiny_catch"
     },
     {
       "dex": 56,
       "name": "Mankey",
       "bonus": "crit_resist",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/mankey.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/mankey.png",
+      "penalty": "Amuleto Shiny",
+      "penaltyBonus": "shiny_charm"
     },
     {
       "dex": 57,
       "name": "Primeape",
       "bonus": "fly_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/primeape.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/primeape.png",
+      "penalty": "Pesca Extra",
+      "penaltyBonus": null
     },
     {
       "dex": 58,
       "name": "Growlithe",
       "bonus": "surf_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/growlithe.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/growlithe.png",
+      "penalty": "Velocidade de Voo",
+      "penaltyBonus": "fly_speed"
     },
     {
       "dex": 59,
       "name": "Arcanine",
       "bonus": "ride_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/arcanine.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/arcanine.png",
+      "penalty": "Velocidade de Surf",
+      "penaltyBonus": "surf_speed"
     },
     {
       "dex": 60,
       "name": "Poliwag",
       "bonus": "dano",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/poliwag.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/poliwag.png",
+      "penalty": "Velocidade de Cavalgar",
+      "penaltyBonus": "ride_speed"
     },
     {
       "dex": 61,
       "name": "Poliwhirl",
       "bonus": "defesa",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/poliwhirl.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/poliwhirl.png",
+      "penalty": "Velocidade de Surf",
+      "penaltyBonus": "surf_speed"
     },
     {
       "dex": 62,
       "name": "Poliwrath",
       "bonus": "hp",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/poliwrath.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/poliwrath.png",
+      "penalty": "Aumento de Defesa",
+      "penaltyBonus": "defesa"
     },
     {
       "dex": 63,
       "name": "Abra",
       "bonus": "pokemon_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/abra.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/abra.png",
+      "penalty": "Aumento de HP",
+      "penaltyBonus": "hp"
     },
     {
       "dex": 64,
       "name": "Kadabra",
       "bonus": "character_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/kadabra.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/kadabra.png",
+      "penalty": "Velocidade do Pokémon",
+      "penaltyBonus": "pokemon_speed"
     },
     {
       "dex": 65,
       "name": "Alakazam",
       "bonus": "crit_chance",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/alakazam.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/alakazam.png",
+      "penalty": "Velocidade do Personagem",
+      "penaltyBonus": "character_speed"
     },
     {
       "dex": 66,
       "name": "Machop",
       "bonus": "crit_damage",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/machop.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/machop.png",
+      "penalty": "Chance de Crítico",
+      "penaltyBonus": "crit_chance"
     },
     {
       "dex": 67,
       "name": "Machoke",
       "bonus": "life_leech",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/machoke.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/machoke.png",
+      "penalty": "Dano Crítico",
+      "penaltyBonus": "crit_damage"
     },
     {
       "dex": 68,
       "name": "Machamp",
       "bonus": "precision",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/machamp.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/machamp.png",
+      "penalty": "Roubo de Vida",
+      "penaltyBonus": "life_leech"
     },
     {
       "dex": 69,
       "name": "Bellsprout",
       "bonus": "evasion",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/bellsprout.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/bellsprout.png",
+      "penalty": "Skill de Pesca",
+      "penaltyBonus": null
     },
     {
       "dex": 70,
       "name": "Weepinbell",
       "bonus": "shiny_fishing",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/weepinbell.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/weepinbell.png",
+      "penalty": "Evasão",
+      "penaltyBonus": "evasion"
     },
     {
       "dex": 71,
       "name": "Victreebel",
       "bonus": "shiny_headbutt",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/victreebel.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/victreebel.png",
+      "penalty": "Pesca Shiny",
+      "penaltyBonus": "shiny_fishing"
     },
     {
       "dex": 72,
       "name": "Tentacool",
       "bonus": "loot",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/tentacool.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/tentacool.png",
+      "penalty": "Headbutt Shiny",
+      "penaltyBonus": "shiny_headbutt"
     },
     {
       "dex": 73,
       "name": "Tentacruel",
       "bonus": "catch",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/tentacruel.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/tentacruel.png",
+      "penalty": "Aumento de Loot",
+      "penaltyBonus": "loot"
     },
     {
       "dex": 74,
       "name": "Geodude",
       "bonus": "shiny_catch",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/geodude.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/geodude.png",
+      "penalty": "Captura",
+      "penaltyBonus": "catch"
     },
     {
       "dex": 75,
       "name": "Graveler",
       "bonus": "shiny_charm",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/graveler.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/graveler.png",
+      "penalty": "Captura Shiny",
+      "penaltyBonus": "shiny_catch"
     },
     {
       "dex": 76,
       "name": "Golem",
       "bonus": "crit_resist",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/golem.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/golem.png",
+      "penalty": "Amuleto Shiny",
+      "penaltyBonus": "shiny_charm"
     },
     {
       "dex": 77,
       "name": "Ponyta",
       "bonus": "fly_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/ponyta.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/ponyta.png",
+      "penalty": "Pesca Extra",
+      "penaltyBonus": null
     },
     {
       "dex": 78,
       "name": "Rapidash",
       "bonus": "surf_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/rapidash.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/rapidash.png",
+      "penalty": "Velocidade de Voo",
+      "penaltyBonus": "fly_speed"
     },
     {
       "dex": 79,
       "name": "Slowpoke",
       "bonus": "ride_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/slowpoke.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/slowpoke.png",
+      "penalty": "Velocidade de Surf",
+      "penaltyBonus": "surf_speed"
     },
     {
       "dex": 80,
       "name": "Slowbro",
       "bonus": "dano",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/slowbro.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/slowbro.png",
+      "penalty": "Velocidade de Cavalgar",
+      "penaltyBonus": "ride_speed"
     },
     {
       "dex": 81,
       "name": "Magnemite",
       "bonus": "defesa",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/magnemite.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/magnemite.png",
+      "penalty": "Aumento de Dano",
+      "penaltyBonus": "dano"
     },
     {
       "dex": 82,
       "name": "Magneton",
       "bonus": "hp",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/magneton.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/magneton.png",
+      "penalty": "Aumento de Defesa",
+      "penaltyBonus": "defesa"
     },
     {
       "dex": 83,
       "name": "Farfetch'd",
       "bonus": "pokemon_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/farfetchd.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/farfetchd.png",
+      "penalty": "Aumento de HP",
+      "penaltyBonus": "hp"
     },
     {
       "dex": 84,
       "name": "Doduo",
       "bonus": "character_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/doduo.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/doduo.png",
+      "penalty": "Velocidade do Pokémon",
+      "penaltyBonus": "pokemon_speed"
     },
     {
       "dex": 85,
       "name": "Dodrio",
       "bonus": "crit_chance",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/dodrio.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/dodrio.png",
+      "penalty": "Velocidade do Personagem",
+      "penaltyBonus": "character_speed"
     },
     {
       "dex": 86,
       "name": "Seel",
       "bonus": "crit_damage",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/seel.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/seel.png",
+      "penalty": "Chance de Crítico",
+      "penaltyBonus": "crit_chance"
     },
     {
       "dex": 87,
       "name": "Dewgong",
       "bonus": "life_leech",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/dewgong.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/dewgong.png",
+      "penalty": "Dano Crítico",
+      "penaltyBonus": "crit_damage"
     },
     {
       "dex": 88,
       "name": "Grimer",
       "bonus": "precision",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/grimer.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/grimer.png",
+      "penalty": "Roubo de Vida",
+      "penaltyBonus": "life_leech"
     },
     {
       "dex": 89,
       "name": "Muk",
       "bonus": "evasion",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/muk.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/muk.png",
+      "penalty": "Skill de Pesca",
+      "penaltyBonus": null
     },
     {
       "dex": 90,
       "name": "Shellder",
       "bonus": "shiny_fishing",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/shellder.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/shellder.png",
+      "penalty": "Evasão",
+      "penaltyBonus": "evasion"
     },
     {
       "dex": 91,
       "name": "Cloyster",
       "bonus": "shiny_headbutt",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/cloyster.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/cloyster.png",
+      "penalty": "Pesca Shiny",
+      "penaltyBonus": "shiny_fishing"
     },
     {
       "dex": 92,
       "name": "Gastly",
       "bonus": "loot",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/gastly.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/gastly.png",
+      "penalty": "Headbutt Shiny",
+      "penaltyBonus": "shiny_headbutt"
     },
     {
       "dex": 93,
       "name": "Haunter",
       "bonus": "catch",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/haunter.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/haunter.png",
+      "penalty": "Aumento de Loot",
+      "penaltyBonus": "loot"
     },
     {
       "dex": 94,
       "name": "Gengar",
       "bonus": "shiny_catch",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/gengar.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/gengar.png",
+      "penalty": "Captura",
+      "penaltyBonus": "catch"
     },
     {
       "dex": 95,
       "name": "Onix",
       "bonus": "shiny_charm",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/onix.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/onix.png",
+      "penalty": "Captura Shiny",
+      "penaltyBonus": "shiny_catch"
     },
     {
       "dex": 96,
       "name": "Drowzee",
       "bonus": "crit_resist",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/drowzee.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/drowzee.png",
+      "penalty": "Amuleto Shiny",
+      "penaltyBonus": "shiny_charm"
     },
     {
       "dex": 97,
       "name": "Hypno",
       "bonus": "fly_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/hypno.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/hypno.png",
+      "penalty": "Pesca Extra",
+      "penaltyBonus": null
     },
     {
       "dex": 98,
       "name": "Krabby",
       "bonus": "surf_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/krabby.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/krabby.png",
+      "penalty": "Velocidade de Voo",
+      "penaltyBonus": "fly_speed"
     },
     {
       "dex": 99,
       "name": "Kingler",
       "bonus": "ride_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/kingler.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/kingler.png",
+      "penalty": "Velocidade de Surf",
+      "penaltyBonus": "surf_speed"
     },
     {
       "dex": 100,
       "name": "Voltorb",
       "bonus": "dano",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/voltorb.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/voltorb.png",
+      "penalty": "Velocidade de Cavalgar",
+      "penaltyBonus": "ride_speed"
     },
     {
       "dex": 101,
       "name": "Electrode",
       "bonus": "defesa",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/electrode.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/electrode.png",
+      "penalty": "Aumento de Dano",
+      "penaltyBonus": "dano"
     },
     {
       "dex": 102,
       "name": "Exeggcute",
       "bonus": "hp",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/exeggcute.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/exeggcute.png",
+      "penalty": "Aumento de Defesa",
+      "penaltyBonus": "defesa"
     },
     {
       "dex": 103,
       "name": "Exeggutor",
       "bonus": "pokemon_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/exeggutor.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/exeggutor.png",
+      "penalty": "Aumento de HP",
+      "penaltyBonus": "hp"
     },
     {
       "dex": 104,
       "name": "Cubone",
       "bonus": "character_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/cubone.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/cubone.png",
+      "penalty": "Velocidade do Pokémon",
+      "penaltyBonus": "pokemon_speed"
     },
     {
       "dex": 105,
       "name": "Marowak",
       "bonus": "crit_chance",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/marowak.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/marowak.png",
+      "penalty": "Velocidade do Personagem",
+      "penaltyBonus": "character_speed"
     },
     {
       "dex": 106,
       "name": "Hitmonlee",
       "bonus": "crit_damage",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/hitmonlee.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/hitmonlee.png",
+      "penalty": "Chance de Crítico",
+      "penaltyBonus": "crit_chance"
     },
     {
       "dex": 107,
       "name": "Hitmonchan",
       "bonus": "life_leech",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/hitmonchan.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/hitmonchan.png",
+      "penalty": "Dano Crítico",
+      "penaltyBonus": "crit_damage"
     },
     {
       "dex": 108,
       "name": "Lickitung",
       "bonus": "precision",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/lickitung.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/lickitung.png",
+      "penalty": "Aumento de Dano",
+      "penaltyBonus": "dano"
     },
     {
       "dex": 109,
       "name": "Koffing",
       "bonus": "evasion",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/koffing.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/koffing.png",
+      "penalty": "Skill de Pesca",
+      "penaltyBonus": null
     },
     {
       "dex": 110,
       "name": "Weezing",
       "bonus": "shiny_fishing",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/weezing.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/weezing.png",
+      "penalty": "Evasão",
+      "penaltyBonus": "evasion"
     },
     {
       "dex": 111,
       "name": "Rhyhorn",
       "bonus": "shiny_headbutt",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/rhyhorn.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/rhyhorn.png",
+      "penalty": "Pesca Shiny",
+      "penaltyBonus": "shiny_fishing"
     },
     {
       "dex": 112,
       "name": "Rhydon",
       "bonus": "loot",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/rhydon.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/rhydon.png",
+      "penalty": "Headbutt Shiny",
+      "penaltyBonus": "shiny_headbutt"
     },
     {
       "dex": 113,
       "name": "Chansey",
       "bonus": "catch",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/chansey.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/chansey.png",
+      "penalty": "Aumento de Loot",
+      "penaltyBonus": "loot"
     },
     {
       "dex": 114,
       "name": "Tangela",
       "bonus": "shiny_catch",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/tangela.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/tangela.png",
+      "penalty": "Captura",
+      "penaltyBonus": "catch"
     },
     {
       "dex": 115,
       "name": "Kangaskhan",
       "bonus": "shiny_charm",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/kangaskhan.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/kangaskhan.png",
+      "penalty": "Captura Shiny",
+      "penaltyBonus": "shiny_catch"
     },
     {
       "dex": 116,
       "name": "Horsea",
       "bonus": "crit_resist",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/horsea.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/horsea.png",
+      "penalty": "Pesca Shiny",
+      "penaltyBonus": "shiny_fishing"
     },
     {
       "dex": 117,
       "name": "Seadra",
       "bonus": "fly_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/seadra.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/seadra.png",
+      "penalty": "Pesca Extra",
+      "penaltyBonus": null
     },
     {
       "dex": 118,
       "name": "Goldeen",
       "bonus": "surf_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/goldeen.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/goldeen.png",
+      "penalty": "Velocidade de Voo",
+      "penaltyBonus": "fly_speed"
     },
     {
       "dex": 119,
       "name": "Seaking",
       "bonus": "ride_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/seaking.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/seaking.png",
+      "penalty": "Velocidade de Surf",
+      "penaltyBonus": "surf_speed"
     },
     {
       "dex": 120,
       "name": "Staryu",
       "bonus": "dano",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/staryu.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/staryu.png",
+      "penalty": "Velocidade de Cavalgar",
+      "penaltyBonus": "ride_speed"
     },
     {
       "dex": 121,
       "name": "Starmie",
       "bonus": "defesa",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/starmie.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/starmie.png",
+      "penalty": "Velocidade de Surf",
+      "penaltyBonus": "surf_speed"
     },
     {
       "dex": 122,
       "name": "Mr. Mime",
       "bonus": "hp",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/mrmime.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/mrmime.png",
+      "penalty": "Aumento de Defesa",
+      "penaltyBonus": "defesa"
     },
     {
       "dex": 123,
       "name": "Scyther",
       "bonus": "pokemon_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/scyther.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/scyther.png",
+      "penalty": "Aumento de HP",
+      "penaltyBonus": "hp"
     },
     {
       "dex": 124,
       "name": "Jynx",
       "bonus": "character_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/jynx.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/jynx.png",
+      "penalty": "Velocidade do Pokémon",
+      "penaltyBonus": "pokemon_speed"
     },
     {
       "dex": 125,
       "name": "Electabuzz",
       "bonus": "crit_chance",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/electabuzz.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/electabuzz.png",
+      "penalty": "Velocidade do Personagem",
+      "penaltyBonus": "character_speed"
     },
     {
       "dex": 126,
       "name": "Magmar",
       "bonus": "crit_damage",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/magmar.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/magmar.png",
+      "penalty": "Chance de Crítico",
+      "penaltyBonus": "crit_chance"
     },
     {
       "dex": 127,
       "name": "Pinsir",
       "bonus": "life_leech",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/pinsir.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/pinsir.png",
+      "penalty": "Dano Crítico",
+      "penaltyBonus": "crit_damage"
     },
     {
       "dex": 128,
       "name": "Tauros",
       "bonus": "precision",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/tauros.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/tauros.png",
+      "penalty": "Roubo de Vida",
+      "penaltyBonus": "life_leech"
     },
     {
       "dex": 129,
       "name": "Magikarp",
       "bonus": "evasion",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/magikarp.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/magikarp.png",
+      "penalty": "Skill de Pesca",
+      "penaltyBonus": null
     },
     {
       "dex": 130,
       "name": "Gyarados",
       "bonus": "shiny_fishing",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/gyarados.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/gyarados.png",
+      "penalty": "Skill de Headbutt",
+      "penaltyBonus": null
     },
     {
       "dex": 131,
       "name": "Lapras",
       "bonus": "shiny_headbutt",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/lapras.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/lapras.png",
+      "penalty": "Pesca Shiny",
+      "penaltyBonus": "shiny_fishing"
     },
     {
       "dex": 132,
       "name": "Ditto",
       "bonus": "loot",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/ditto.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/ditto.png",
+      "penalty": "Headbutt Shiny",
+      "penaltyBonus": "shiny_headbutt"
     },
     {
       "dex": 133,
       "name": "Eevee",
       "bonus": "catch",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/eevee.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/eevee.png",
+      "penalty": "Aumento de Loot",
+      "penaltyBonus": "loot"
     },
     {
       "dex": 134,
       "name": "Vaporeon",
       "bonus": "shiny_catch",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/vaporeon.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/vaporeon.png",
+      "penalty": "Captura",
+      "penaltyBonus": "catch"
     },
     {
       "dex": 135,
       "name": "Jolteon",
       "bonus": "shiny_charm",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/jolteon.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/jolteon.png",
+      "penalty": "Captura Shiny",
+      "penaltyBonus": "shiny_catch"
     },
     {
       "dex": 136,
       "name": "Flareon",
       "bonus": "crit_resist",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/flareon.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/flareon.png",
+      "penalty": "Amuleto Shiny",
+      "penaltyBonus": "shiny_charm"
     },
     {
       "dex": 137,
       "name": "Porygon",
       "bonus": "fly_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/porygon.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/porygon.png",
+      "penalty": "Pesca Extra",
+      "penaltyBonus": null
     },
     {
       "dex": 138,
       "name": "Omanyte",
       "bonus": "surf_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/omanyte.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/omanyte.png",
+      "penalty": "Velocidade de Voo",
+      "penaltyBonus": "fly_speed"
     },
     {
       "dex": 139,
       "name": "Omastar",
       "bonus": "ride_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/omastar.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/omastar.png",
+      "penalty": "Velocidade de Surf",
+      "penaltyBonus": "surf_speed"
     },
     {
       "dex": 140,
       "name": "Kabuto",
       "bonus": "dano",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/kabuto.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/kabuto.png",
+      "penalty": "Velocidade de Cavalgar",
+      "penaltyBonus": "ride_speed"
     },
     {
       "dex": 141,
       "name": "Kabutops",
       "bonus": "defesa",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/kabutops.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/kabutops.png",
+      "penalty": "Aumento de Dano",
+      "penaltyBonus": "dano"
     },
     {
       "dex": 142,
       "name": "Aerodactyl",
       "bonus": "hp",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/aerodactyl.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/aerodactyl.png",
+      "penalty": "Aumento de Defesa",
+      "penaltyBonus": "defesa"
     },
     {
       "dex": 143,
       "name": "Snorlax",
       "bonus": "pokemon_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/snorlax.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/snorlax.png",
+      "penalty": "Aumento de HP",
+      "penaltyBonus": "hp"
     },
     {
       "dex": 144,
       "name": "Articuno",
       "bonus": "pokemon_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/articuno.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/articuno.png",
+      "penalty": "Nenhuma",
+      "penaltyBonus": null,
+      "legendary": true
     },
     {
       "dex": 145,
       "name": "Zapdos",
       "bonus": "character_speed",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/zapdos.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/zapdos.png",
+      "penalty": "Nenhuma",
+      "penaltyBonus": null,
+      "legendary": true
     },
     {
       "dex": 146,
       "name": "Moltres",
       "bonus": "crit_chance",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/moltres.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/moltres.png",
+      "penalty": "Nenhuma",
+      "penaltyBonus": null,
+      "legendary": true
     },
     {
       "dex": 147,
       "name": "Dratini",
       "bonus": "life_leech",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/dratini.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/dratini.png",
+      "penalty": "Dano Crítico",
+      "penaltyBonus": "crit_damage"
     },
     {
       "dex": 148,
       "name": "Dragonair",
       "bonus": "precision",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/dragonair.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/dragonair.png",
+      "penalty": "Roubo de Vida",
+      "penaltyBonus": "life_leech"
     },
     {
       "dex": 149,
       "name": "Dragonite",
       "bonus": "evasion",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/dragonite.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/dragonite.png",
+      "penalty": "Skill de Pesca",
+      "penaltyBonus": null
     },
     {
       "dex": 150,
       "name": "Mewtwo",
       "bonus": "shiny_catch",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/mewtwo.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/mewtwo.png",
+      "penalty": "Nenhuma",
+      "penaltyBonus": null,
+      "legendary": true
     },
     {
       "dex": 151,
       "name": "Mew",
       "bonus": "shiny_charm",
-      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/mew.png"
+      "sprite": "https://play.pokemonshowdown.com/sprites/gen5/mew.png",
+      "penalty": "Nenhuma",
+      "penaltyBonus": null,
+      "legendary": true
     }
   ],
   "excludedBecauseTheyHaveNoPositiveBonusMedals": [
     "Skill de Pesca",
     "Pesca Extra",
     "Skill de Headbutt"
+  ],
+  "penaltyDivergencesVsWiki": [
+    {
+      "dex": 9,
+      "name": "Blastoise",
+      "pkatoolsPenalty": "Skill de Pesca",
+      "wikiPenalty": "Precisão"
+    },
+    {
+      "dex": 15,
+      "name": "Beedrill",
+      "pkatoolsPenalty": "Skill de Headbutt",
+      "wikiPenalty": "Evasão"
+    },
+    {
+      "dex": 17,
+      "name": "Pidgeotto",
+      "pkatoolsPenalty": "Pesca Extra",
+      "wikiPenalty": "Resistência Crítica"
+    },
+    {
+      "dex": 29,
+      "name": "Nidoran♀",
+      "pkatoolsPenalty": "Skill de Pesca",
+      "wikiPenalty": "Precisão"
+    },
+    {
+      "dex": 37,
+      "name": "Vulpix",
+      "pkatoolsPenalty": "Pesca Extra",
+      "wikiPenalty": "Resistência Crítica"
+    },
+    {
+      "dex": 49,
+      "name": "Venomoth",
+      "pkatoolsPenalty": "Skill de Pesca",
+      "wikiPenalty": "Precisão"
+    },
+    {
+      "dex": 57,
+      "name": "Primeape",
+      "pkatoolsPenalty": "Pesca Extra",
+      "wikiPenalty": "Resistência Crítica"
+    },
+    {
+      "dex": 69,
+      "name": "Bellsprout",
+      "pkatoolsPenalty": "Skill de Pesca",
+      "wikiPenalty": "Precisão"
+    },
+    {
+      "dex": 77,
+      "name": "Ponyta",
+      "pkatoolsPenalty": "Pesca Extra",
+      "wikiPenalty": "Resistência Crítica"
+    },
+    {
+      "dex": 89,
+      "name": "Muk",
+      "pkatoolsPenalty": "Skill de Pesca",
+      "wikiPenalty": "Precisão"
+    },
+    {
+      "dex": 97,
+      "name": "Hypno",
+      "pkatoolsPenalty": "Pesca Extra",
+      "wikiPenalty": "Resistência Crítica"
+    },
+    {
+      "dex": 109,
+      "name": "Koffing",
+      "pkatoolsPenalty": "Skill de Pesca",
+      "wikiPenalty": "Precisão"
+    },
+    {
+      "dex": 117,
+      "name": "Seadra",
+      "pkatoolsPenalty": "Pesca Extra",
+      "wikiPenalty": "Resistência Crítica"
+    },
+    {
+      "dex": 129,
+      "name": "Magikarp",
+      "pkatoolsPenalty": "Skill de Pesca",
+      "wikiPenalty": "Precisão"
+    },
+    {
+      "dex": 130,
+      "name": "Gyarados",
+      "pkatoolsPenalty": "Skill de Headbutt",
+      "wikiPenalty": "Evasão"
+    },
+    {
+      "dex": 137,
+      "name": "Porygon",
+      "pkatoolsPenalty": "Pesca Extra",
+      "wikiPenalty": "Resistência Crítica"
+    },
+    {
+      "dex": 149,
+      "name": "Dragonite",
+      "pkatoolsPenalty": "Skill de Pesca",
+      "wikiPenalty": "Precisão"
+    }
   ]
 }

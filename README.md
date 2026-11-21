@@ -60,9 +60,22 @@ A regra fica guardada por semana: semanas antigas mantêm a fórmula da época
 
 ## Medalhas
 
-Aba "Medalhas": filtro de bônus (20 buffs em chips multiseleção) + caixa de log
-(colar com Ctrl+V ou carregar `.txt`/`.log`) + botão Filtrar. O resultado lista
-só as medalhas que combinam, com sprite, nome, Dex, bônus e quantidade (×N).
+Aba "Medalhas": seletor de modo (filtrar o log ou ver o catálogo) + filtro
+de bônus (20 buffs em multiseleção, compartilhado pelos dois modos) + caixa
+de log (colar com Ctrl+V ou carregar `.txt`/`.log`) + botão Filtrar. O modo
+log lista só as medalhas que combinam, com sprite, nome, Dex, bônus (▲),
+penalidade (▼) e quantidade (×N). O modo catálogo lista todas as 151 (ou só
+as dos bônus selecionados), agrupadas por bônus.
+
+- Parser: lê `Dex #N` em `Você recebeu uma medalha (Dex #N)!`; ignora o resto;
+  valida 1–151; preserva duplicadas (agrupa na exibição como ×N).
+- Cada medalha dá um bônus (▲) e tira uma penalidade (▼); as 5 lendárias
+  (Articuno, Zapdos, Moltres, Mewtwo, Mew) não têm penalidade. Rank da
+  medalha (Bronze→Oricalco, por duplicatas) escala os valores.
+- Fonte das penalidades: PKA Tools (`/medalhas`), conferido com a wiki
+  oficial (`pokealliancewiki.com/pt/sistemas/medals/`). Onde as duas fontes
+  discordam (17 penalidades), vale o PKA Tools e a wiki fica registrada em
+  `penaltyDivergencesVsWiki` no JSON — confira no jogo e avise se mudar.
 
 - Parser: lê `Dex #N` em `Você recebeu uma medalha (Dex #N)!`; ignora o resto;
   valida 1–151; preserva duplicadas (agrupa na exibição como ×N).
@@ -72,7 +85,8 @@ só as medalhas que combinam, com sprite, nome, Dex, bônus e quantidade (×N).
 - Dica: tem um print das medalhas? O botão "Copiar prompt do ChatGPT" copia o
   prompt (`data/skill-leitor-medalhas.md`); mande no ChatGPT junto com o print
   e ele devolve o texto no padrão para colar na caixa.
-- Catálogo estático em `data/pka_medals_catalog.json` (151 medalhas, 20 bônus).
+- Catálogo estático em `data/pka_medals_catalog.json` (151 medalhas: bônus ▲,
+  penalidade ▼ e as 5 lendárias sem penalidade).
 
 ## Estrutura
 
