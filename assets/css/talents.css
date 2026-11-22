@@ -1,0 +1,50 @@
+.talent-tiers { display: flex; gap: 8px; flex-wrap: wrap; }
+.talent-tiers .btn { flex: 1; min-width: 120px; }
+.talent-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; align-items: center; }
+.talent-list { display: grid; gap: 12px; margin-top: 14px; }
+.talent-card {
+    background: var(--card-2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 12px;
+  }
+.talent-card.done { border-color: var(--green); }
+.talent-card-head { display: flex; gap: 10px; align-items: flex-start; }
+.talent-check { display: inline-flex; gap: 8px; align-items: center; cursor: pointer; flex: 1; min-width: 0; }
+.talent-check input { width: auto; accent-color: var(--accent); flex-shrink: 0; }
+.talent-title { font-weight: 700; }
+.talent-progress { font-size: .85rem; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.talent-progress.complete { color: var(--green); font-weight: 700; }
+.talent-needs { list-style: none; margin-top: 10px; display: grid; gap: 6px; }
+.talent-need {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 6px 10px; cursor: pointer;
+  }
+.talent-need.full { border-color: var(--green); }
+.talent-need img { width: 40px; height: 40px; image-rendering: pixelated; flex-shrink: 0; }
+.talent-need .img-fallback {
+    width: 40px; height: 40px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--card-2); border: 1px solid var(--border); border-radius: 8px;
+    font-size: .7rem; color: var(--muted);
+  }
+.talent-need .info { flex: 1; min-width: 0; }
+.talent-need .name { font-weight: 700; font-size: .9rem; }
+.talent-need .meta { font-size: .8rem; color: var(--muted); }
+.talent-stepper { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.talent-stepper button {
+    cursor: pointer; width: 28px; height: 28px;
+    background: var(--card-2); color: var(--text);
+    border: 1px solid var(--border); border-radius: 6px;
+    font-size: 1rem; line-height: 1; font-weight: 700;
+  }
+.talent-stepper button:active { transform: scale(.93); }
+.talent-have { min-width: 44px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+.talent-empty { color: var(--muted); font-size: .93rem; text-align: center; padding: 18px 0 6px; }
+.talent-note { font-size: .85rem; color: var(--muted); margin-top: 10px; }
+.talent-total-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+.talent-total-head h2 { margin-bottom: 0; }
+@media (min-width: 720px) {
+  .talent-needs { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .talent-total-list { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+}
+.talent-total-list { list-style: none; margin-top: 14px; display: grid; gap: 8px; }

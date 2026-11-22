@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="assets/css/calc.css">
 <link rel="stylesheet" href="assets/css/history.css">
 <link rel="stylesheet" href="assets/css/medals.css">
+<link rel="stylesheet" href="assets/css/talents.css">
 </head>
 <body>
 <div class="wrap" id="wrap">
@@ -27,6 +28,7 @@
     <button id="tabCalc" class="active" type="button">Calculadora</button>
     <button id="tabHist" type="button">Histórico</button>
     <button id="tabMedals" type="button">Medalhas</button>
+    <button id="tabTalents" type="button">Talentos</button>
   </nav>
 
   <!-- ============ CALCULADORA ============ -->
@@ -175,6 +177,40 @@
       <div class="medal-empty" id="medalCatalogEmpty" hidden>Carregando catálogo…</div>
       <div id="medalCatalogList"></div>
       <p class="medal-note" id="medalCatalogSummary" hidden></p>
+    </section>
+  </div>
+
+  <!-- ============ TALENTOS ============ -->
+  <div id="viewTalents" hidden>
+    <section class="card">
+      <h2>1. Qual tier?</h2>
+      <div class="talent-tiers" id="talentTiers"></div>
+      <div class="talent-actions">
+        <button class="btn primary" id="talentSelectTier" type="button">Selecionar tudo do tier</button>
+        <button class="btn" id="talentClearTier" type="button">Limpar tier</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>2. Quais talentos fazer? (marque e anote as medalhas já colocadas)</h2>
+      <p class="medal-note" style="margin-top:0;margin-bottom:10px">Marque o talento, depois clique na medalha ou no +/− para anotar quantas você já colocou (clicar na linha soma +1 e zera ao completar).</p>
+      <div class="talent-empty" id="talentEmpty" hidden>Carregando talentos…</div>
+      <div class="talent-list" id="talentList"></div>
+    </section>
+
+    <section class="card">
+      <div class="talent-total-head">
+        <h2>3. O que falta guardar</h2>
+      </div>
+      <div class="talent-actions" style="margin-top:0">
+        <button class="btn primary" id="talentSelectAll" type="button">Selecionar todos os talentos</button>
+        <button class="btn" id="talentClearAll" type="button">Limpar tudo</button>
+        <button class="btn" id="talentWipe" type="button">Limpar dados locais</button>
+      </div>
+      <div class="talent-empty" id="talentTotalEmpty">Marque os talentos que você quer fazer para ver o total acumulado.</div>
+      <div class="talent-total-list" id="talentTotalList"></div>
+      <p class="medal-note" id="talentTotalSummary" hidden></p>
+      <p class="medal-note" id="talentStoreNote">Talentos e medalhas marcadas ficam salvos só neste navegador. Nada é enviado a servidor.</p>
     </section>
   </div>
 

@@ -2,6 +2,7 @@ import { $ } from "./lib.js";
 import "./calc.js";
 import { loadHistory } from "./history.js";
 import { loadMedals } from "./medals.js";
+import { loadTalents } from "./talents.js";
 
 // Tabela de rotas: nova aba = 1 entrada aqui + <nav>/<view> no HTML
 // + par assets/css/<aba>.css e assets/js/<aba>.js.
@@ -19,6 +20,10 @@ var TABS = {
   medals: {
     tab: $("tabMedals"), view: $("viewMedals"), wide: true, load: loadMedals,
     subtitle: "Filtre o log e veja quais medalhas guardar."
+  },
+  talents: {
+    tab: $("tabTalents"), view: $("viewTalents"), wide: true, load: loadTalents,
+    subtitle: "Marque os talentos e veja quais medalhas faltam."
   }
 };
 
