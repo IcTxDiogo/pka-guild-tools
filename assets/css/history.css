@@ -3,6 +3,15 @@
     flex-wrap: wrap; margin-bottom: 16px;
   }
 .week-head .note { font-size: .85rem; color: var(--muted); }
+.aviso {
+    background: #f5c542;
+    color: #141414;
+    font-weight: 700;
+    font-size: .9rem;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+  }
 .table-scroll { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: .9rem; }
 th, td { padding: 8px 10px; text-align: left; white-space: nowrap; }

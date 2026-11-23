@@ -2,6 +2,7 @@ import { $, fmt, esc } from "./lib.js";
   /* ---------- histórico ---------- */
   var weeks = null, rowsCache = {};
   var weekSel = $("weekSel"), weekNote = $("weekNote"),
+      weekAviso = $("weekAviso"),
       histBody = $("histBody"),
       kickCard = $("kickCard"), kickList = $("kickList"),
       noKickCard = $("noKickCard"), noKickText = $("noKickText");
@@ -39,6 +40,14 @@ import { $, fmt, esc } from "./lib.js";
     }).sort(function (a, b) { return b.pts - a.pts; });
 
     weekNote.textContent = "Meta " + w.meta + " pts · " + w.ruleNote;
+
+    if (w.aviso) {
+      weekAviso.textContent = w.aviso;
+      weekAviso.hidden = false;
+    } else {
+      weekAviso.textContent = "";
+      weekAviso.hidden = true;
+    }
 
     histBody.innerHTML = scored.map(function (s) {
       var kicked = !s.ok && s.r.entrou === "";
@@ -87,6 +96,8 @@ import { $, fmt, esc } from "./lib.js";
       histBody.innerHTML = "<tr><td colspan=\"6\">Não deu pra carregar o histórico (" +
         esc(err.message) + ").</td></tr>";
       weekNote.textContent = "";
+      weekAviso.textContent = "";
+      weekAviso.hidden = true;
       kickCard.hidden = true;
       noKickCard.hidden = true;
     });
